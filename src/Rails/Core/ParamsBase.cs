@@ -198,7 +198,7 @@ public abstract record class ParamsBase
 
         if (options.ApiKey != null)
         {
-            request.Headers.Add("api_key", options.ApiKey);
+            request.Headers.Add("X-API-Key", options.ApiKey);
         }
         request.Headers.Add(
             "X-Stainless-Timeout",
