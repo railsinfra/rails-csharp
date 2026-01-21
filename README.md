@@ -22,22 +22,22 @@ See the [`examples`](examples) directory for complete and runnable examples.
 ```csharp
 using System;
 using Rails;
-using Rails.Models.Pet;
+using Rails.Models.Users;
 
 RailsClient client = new();
 
-PetUpdateParams parameters = new()
+UserCreateParams parameters = new()
 {
-    Name = "doggie",
-    PhotoUrls =
-    [
-        "string"
-    ],
+    Email = "dev@stainless.com",
+    FirstName = "first_name",
+    LastName = "last_name",
+    Password = "password",
+    XEnvironment = XEnvironment.Sandbox,
 };
 
-var pet = await client.Pet.Update(parameters);
+var user = await client.Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ## Client configuration
@@ -63,10 +63,10 @@ Or using a combination of the two approaches.
 
 See this table for the available options:
 
-| Property  | Environment variable | Required | Default value                           |
-| --------- | -------------------- | -------- | --------------------------------------- |
-| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                       |
-| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://petstore3.swagger.io/api/v3"` |
+| Property  | Environment variable | Required | Default value             |
+| --------- | -------------------- | -------- | ------------------------- |
+| `ApiKey`  | `RAILS_API_KEY`      | true     | -                         |
+| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://api.rails.com"` |
 
 ### Modifying configuration
 
@@ -75,7 +75,7 @@ To temporarily use a modified client configuration, while reusing the same conne
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with
         {
@@ -83,9 +83,9 @@ var pet = await client
             Timeout = TimeSpan.FromSeconds(42),
         }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 Using a [`with` expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) makes it easy to construct the modified options.
@@ -96,7 +96,7 @@ The `WithOptions` method does not affect the original client or service.
 
 To send a request to the Rails API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a C# class.
 
-For example, `client.Pet.Update` should be called with an instance of `PetUpdateParams`, and it will return an instance of `Task<PetPet>`.
+For example, `client.Users.Create` should be called with an instance of `UserCreateParams`, and it will return an instance of `Task<UserCreateResponse>`.
 
 ## Raw responses
 
@@ -105,7 +105,7 @@ The SDK defines methods that deserialize responses into instances of C# classes.
 To access this data, prefix any HTTP method call on a client or service with `WithRawResponse`:
 
 ```csharp
-var response = await client.WithRawResponse.Pet.Update(parameters);
+var response = await client.WithRawResponse.Users.Create(parameters);
 var statusCode = response.StatusCode;
 var headers = response.Headers;
 ```
@@ -116,10 +116,10 @@ For non-streaming responses, you can deserialize the response into an instance o
 
 ```csharp
 using System;
-using Rails.Models.Pet;
+using Rails.Models.Users;
 
-var response = await client.WithRawResponse.Pet.Update(parameters);
-PetPet deserialized = await response.Deserialize();
+var response = await client.WithRawResponse.Users.Create(parameters);
+UserCreateResponse deserialized = await response.Deserialize();
 Console.WriteLine(deserialized);
 ```
 
@@ -179,13 +179,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with { MaxRetries = 3 }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ### Timeouts
@@ -206,13 +206,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with { Timeout = TimeSpan.FromSeconds(42) }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ## Undocumented API functionality
@@ -228,8 +228,8 @@ By default, the SDK will not throw an exception in this case. It will throw `Rai
 If you would prefer to check that the response is completely well-typed upfront, then either call `Validate`:
 
 ```csharp
-var pet = client.Pet.Update(parameters);
-pet.Validate();
+var user = client.Users.Create(parameters);
+user.Validate();
 ```
 
 Or configure the client using the `ResponseValidation` option:
@@ -245,13 +245,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with { ResponseValidation = true }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ## Semantic versioning

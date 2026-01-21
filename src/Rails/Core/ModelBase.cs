@@ -1,7 +1,8 @@
 using System.Text.Json;
 using Rails.Exceptions;
-using Rails.Models.Pet;
-using Order = Rails.Models.Store.Order;
+using Rails.Models.Accounts;
+using Rails.Models.Users;
+using Transactions = Rails.Models.Transactions;
 
 namespace Rails.Core;
 
@@ -22,12 +23,40 @@ public abstract record class ModelBase
         Converters =
         {
             new FrozenDictionaryConverterFactory(),
-            new ApiEnumConverter<string, PetPetStatus>(),
+            new ApiEnumConverter<string, XEnvironment>(),
+            new ApiEnumConverter<string, AccountCreateResponseAccountType>(),
+            new ApiEnumConverter<string, AccountCreateResponseStatus>(),
+            new ApiEnumConverter<string, AccountRetrieveResponseAccountType>(),
+            new ApiEnumConverter<string, AccountRetrieveResponseStatus>(),
+            new ApiEnumConverter<string, AccountListResponseAccountType>(),
+            new ApiEnumConverter<string, AccountListResponseStatus>(),
+            new ApiEnumConverter<string, AccountCloseResponseAccountType>(),
+            new ApiEnumConverter<string, AccountCloseResponseStatus>(),
+            new ApiEnumConverter<string, AccountAccountType>(),
+            new ApiEnumConverter<string, AccountStatus>(),
+            new ApiEnumConverter<string, TransactionStatus>(),
+            new ApiEnumConverter<string, TransactionType>(),
+            new ApiEnumConverter<string, FromAccountAccountType>(),
+            new ApiEnumConverter<string, FromAccountStatus>(),
+            new ApiEnumConverter<string, ToAccountAccountType>(),
+            new ApiEnumConverter<string, ToAccountStatus>(),
+            new ApiEnumConverter<string, AccountTransferResponseTransactionStatus>(),
+            new ApiEnumConverter<string, AccountTransferResponseTransactionTransactionType>(),
+            new ApiEnumConverter<string, AccountUpdateStatusResponseAccountType>(),
+            new ApiEnumConverter<string, AccountUpdateStatusResponseStatus>(),
+            new ApiEnumConverter<string, AccountWithdrawResponseAccountAccountType>(),
+            new ApiEnumConverter<string, AccountWithdrawResponseAccountStatus>(),
+            new ApiEnumConverter<string, AccountWithdrawResponseTransactionStatus>(),
+            new ApiEnumConverter<string, AccountWithdrawResponseTransactionTransactionType>(),
+            new ApiEnumConverter<string, AccountType>(),
             new ApiEnumConverter<string, Status>(),
-            new ApiEnumConverter<string, PetUpdateParamsStatus>(),
-            new ApiEnumConverter<string, PetFindByStatusParamsStatus>(),
-            new ApiEnumConverter<string, Order::OrderOrderStatus>(),
-            new ApiEnumConverter<string, Order::Status>(),
+            new ApiEnumConverter<string, Transactions::Status>(),
+            new ApiEnumConverter<string, Transactions::TransactionType>(),
+            new ApiEnumConverter<string, Transactions::TransactionListByAccountResponseStatus>(),
+            new ApiEnumConverter<
+                string,
+                Transactions::TransactionListByAccountResponseTransactionType
+            >(),
         },
     };
 
