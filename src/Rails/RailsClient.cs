@@ -72,22 +72,22 @@ public sealed class RailsClient : IRailsClient
         return new RailsClient(modifier(this._options));
     }
 
-    readonly Lazy<IPetService> _pet;
-    public IPetService Pet
+    readonly Lazy<IUserService> _users;
+    public IUserService Users
     {
-        get { return _pet.Value; }
+        get { return _users.Value; }
     }
 
-    readonly Lazy<IStoreService> _store;
-    public IStoreService Store
+    readonly Lazy<IAccountService> _accounts;
+    public IAccountService Accounts
     {
-        get { return _store.Value; }
+        get { return _accounts.Value; }
     }
 
-    readonly Lazy<IUserService> _user;
-    public IUserService User
+    readonly Lazy<ITransactionService> _transactions;
+    public ITransactionService Transactions
     {
-        get { return _user.Value; }
+        get { return _transactions.Value; }
     }
 
     public void Dispose() => this.HttpClient.Dispose();
@@ -97,9 +97,9 @@ public sealed class RailsClient : IRailsClient
         _options = new();
 
         _withRawResponse = new(() => new RailsClientWithRawResponse(this._options));
-        _pet = new(() => new PetService(this));
-        _store = new(() => new StoreService(this));
-        _user = new(() => new UserService(this));
+        _users = new(() => new UserService(this));
+        _accounts = new(() => new AccountService(this));
+        _transactions = new(() => new TransactionService(this));
     }
 
     public RailsClient(ClientOptions options)
@@ -122,6 +122,8 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
         get { return _threadLocalRandom.Value!; }
     }
 #endif
+
+    internal static HttpMethod PatchMethod = new("PATCH");
 
     readonly ClientOptions _options;
 
@@ -173,22 +175,22 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
         return new RailsClientWithRawResponse(modifier(this._options));
     }
 
-    readonly Lazy<IPetServiceWithRawResponse> _pet;
-    public IPetServiceWithRawResponse Pet
+    readonly Lazy<IUserServiceWithRawResponse> _users;
+    public IUserServiceWithRawResponse Users
     {
-        get { return _pet.Value; }
+        get { return _users.Value; }
     }
 
-    readonly Lazy<IStoreServiceWithRawResponse> _store;
-    public IStoreServiceWithRawResponse Store
+    readonly Lazy<IAccountServiceWithRawResponse> _accounts;
+    public IAccountServiceWithRawResponse Accounts
     {
-        get { return _store.Value; }
+        get { return _accounts.Value; }
     }
 
-    readonly Lazy<IUserServiceWithRawResponse> _user;
-    public IUserServiceWithRawResponse User
+    readonly Lazy<ITransactionServiceWithRawResponse> _transactions;
+    public ITransactionServiceWithRawResponse Transactions
     {
-        get { return _user.Value; }
+        get { return _transactions.Value; }
     }
 
     /// <inheritdoc/>
@@ -385,9 +387,9 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
     {
         _options = new();
 
-        _pet = new(() => new PetServiceWithRawResponse(this));
-        _store = new(() => new StoreServiceWithRawResponse(this));
-        _user = new(() => new UserServiceWithRawResponse(this));
+        _users = new(() => new UserServiceWithRawResponse(this));
+        _accounts = new(() => new AccountServiceWithRawResponse(this));
+        _transactions = new(() => new TransactionServiceWithRawResponse(this));
     }
 
     public RailsClientWithRawResponse(ClientOptions options)

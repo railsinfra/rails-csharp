@@ -51,11 +51,11 @@ public interface IRailsClient : IDisposable
     /// </summary>
     IRailsClient WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IPetService Pet { get; }
+    IUserService Users { get; }
 
-    IStoreService Store { get; }
+    IAccountService Accounts { get; }
 
-    IUserService User { get; }
+    ITransactionService Transactions { get; }
 }
 
 /// <summary>
@@ -87,11 +87,11 @@ public interface IRailsClientWithRawResponse : IDisposable
     /// </summary>
     IRailsClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IPetServiceWithRawResponse Pet { get; }
+    IUserServiceWithRawResponse Users { get; }
 
-    IStoreServiceWithRawResponse Store { get; }
+    IAccountServiceWithRawResponse Accounts { get; }
 
-    IUserServiceWithRawResponse User { get; }
+    ITransactionServiceWithRawResponse Transactions { get; }
 
     /// <summary>
     /// Sends a request to the Rails REST API.
