@@ -166,8 +166,11 @@ public sealed record class TransactionRetrieveResponse : JsonModel
 
     public TransactionRetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public TransactionRetrieveResponse(TransactionRetrieveResponse transactionRetrieveResponse)
         : base(transactionRetrieveResponse) { }
+#pragma warning restore CS8618
 
     public TransactionRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

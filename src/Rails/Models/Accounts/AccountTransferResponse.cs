@@ -52,8 +52,11 @@ public sealed record class AccountTransferResponse : JsonModel
 
     public AccountTransferResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AccountTransferResponse(AccountTransferResponse accountTransferResponse)
         : base(accountTransferResponse) { }
+#pragma warning restore CS8618
 
     public AccountTransferResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -240,8 +243,11 @@ public sealed record class FromAccount : JsonModel
 
     public FromAccount() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public FromAccount(FromAccount fromAccount)
         : base(fromAccount) { }
+#pragma warning restore CS8618
 
     public FromAccount(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -516,8 +522,11 @@ public sealed record class ToAccount : JsonModel
 
     public ToAccount() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public ToAccount(ToAccount toAccount)
         : base(toAccount) { }
+#pragma warning restore CS8618
 
     public ToAccount(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -802,10 +811,13 @@ public sealed record class AccountTransferResponseTransaction : JsonModel
 
     public AccountTransferResponseTransaction() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AccountTransferResponseTransaction(
         AccountTransferResponseTransaction accountTransferResponseTransaction
     )
         : base(accountTransferResponseTransaction) { }
+#pragma warning restore CS8618
 
     public AccountTransferResponseTransaction(IReadOnlyDictionary<string, JsonElement> rawData)
     {

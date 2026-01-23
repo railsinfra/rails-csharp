@@ -41,8 +41,11 @@ public sealed record class AccountDepositResponse : JsonModel
 
     public AccountDepositResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AccountDepositResponse(AccountDepositResponse accountDepositResponse)
         : base(accountDepositResponse) { }
+#pragma warning restore CS8618
 
     public AccountDepositResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -229,8 +232,11 @@ public sealed record class Account : JsonModel
 
     public Account() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Account(Account account)
         : base(account) { }
+#pragma warning restore CS8618
 
     public Account(IReadOnlyDictionary<string, JsonElement> rawData)
     {
@@ -505,8 +511,11 @@ public sealed record class Transaction : JsonModel
 
     public Transaction() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public Transaction(Transaction transaction)
         : base(transaction) { }
+#pragma warning restore CS8618
 
     public Transaction(IReadOnlyDictionary<string, JsonElement> rawData)
     {

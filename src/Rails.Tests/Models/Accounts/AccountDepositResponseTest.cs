@@ -256,6 +256,50 @@ public class AccountDepositResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountDepositResponse
+        {
+            Account = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountNumber = "account_number",
+                AccountType = AccountAccountType.Checking,
+                Balance = "balance",
+                Currency = "currency",
+                Environment = "environment",
+                Status = AccountStatus.Active,
+                UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                UserRole = "user_role",
+            },
+            Transaction = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                Amount = "amount",
+                BalanceAfter = "balance_after",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Currency = "currency",
+                Status = TransactionStatus.Pending,
+                TransactionType = TransactionType.Deposit,
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Description = "description",
+                ExternalRecipientID = "external_recipient_id",
+                RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+        };
+
+        AccountDepositResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class AccountTest : TestBase
@@ -514,6 +558,31 @@ public class AccountTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Account
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountNumber = "account_number",
+            AccountType = AccountAccountType.Checking,
+            Balance = "balance",
+            Currency = "currency",
+            Environment = "environment",
+            Status = AccountStatus.Active,
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            UserRole = "user_role",
+        };
+
+        Account copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -892,6 +961,31 @@ public class TransactionTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new Transaction
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            Amount = "amount",
+            BalanceAfter = "balance_after",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Currency = "currency",
+            Status = TransactionStatus.Pending,
+            TransactionType = TransactionType.Deposit,
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            ExternalRecipientID = "external_recipient_id",
+            RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        };
+
+        Transaction copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 

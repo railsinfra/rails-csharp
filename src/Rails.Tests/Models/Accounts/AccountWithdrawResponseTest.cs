@@ -256,6 +256,50 @@ public class AccountWithdrawResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountWithdrawResponse
+        {
+            Account = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountNumber = "account_number",
+                AccountType = AccountWithdrawResponseAccountAccountType.Checking,
+                Balance = "balance",
+                Currency = "currency",
+                Environment = "environment",
+                Status = AccountWithdrawResponseAccountStatus.Active,
+                UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                UserRole = "user_role",
+            },
+            Transaction = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                Amount = "amount",
+                BalanceAfter = "balance_after",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Currency = "currency",
+                Status = AccountWithdrawResponseTransactionStatus.Pending,
+                TransactionType = AccountWithdrawResponseTransactionTransactionType.Deposit,
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Description = "description",
+                ExternalRecipientID = "external_recipient_id",
+                RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+        };
+
+        AccountWithdrawResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class AccountWithdrawResponseAccountTest : TestBase
@@ -521,6 +565,31 @@ public class AccountWithdrawResponseAccountTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountWithdrawResponseAccount
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountNumber = "account_number",
+            AccountType = AccountWithdrawResponseAccountAccountType.Checking,
+            Balance = "balance",
+            Currency = "currency",
+            Environment = "environment",
+            Status = AccountWithdrawResponseAccountStatus.Active,
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            UserRole = "user_role",
+        };
+
+        AccountWithdrawResponseAccount copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -895,6 +964,31 @@ public class AccountWithdrawResponseTransactionTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountWithdrawResponseTransaction
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            Amount = "amount",
+            BalanceAfter = "balance_after",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Currency = "currency",
+            Status = AccountWithdrawResponseTransactionStatus.Pending,
+            TransactionType = AccountWithdrawResponseTransactionTransactionType.Deposit,
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            ExternalRecipientID = "external_recipient_id",
+            RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        };
+
+        AccountWithdrawResponseTransaction copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
