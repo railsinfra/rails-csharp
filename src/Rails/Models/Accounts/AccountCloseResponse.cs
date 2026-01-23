@@ -166,8 +166,11 @@ public sealed record class AccountCloseResponse : JsonModel
 
     public AccountCloseResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AccountCloseResponse(AccountCloseResponse accountCloseResponse)
         : base(accountCloseResponse) { }
+#pragma warning restore CS8618
 
     public AccountCloseResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

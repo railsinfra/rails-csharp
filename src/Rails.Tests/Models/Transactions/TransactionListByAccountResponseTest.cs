@@ -268,6 +268,31 @@ public class TransactionListByAccountResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new TransactionListByAccountResponse
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            Amount = "amount",
+            BalanceAfter = "balance_after",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Currency = "currency",
+            Status = TransactionListByAccountResponseStatus.Pending,
+            TransactionType = TransactionListByAccountResponseTransactionType.Deposit,
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            ExternalRecipientID = "external_recipient_id",
+            RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        };
+
+        TransactionListByAccountResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class TransactionListByAccountResponseStatusTest : TestBase

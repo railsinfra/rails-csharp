@@ -168,8 +168,11 @@ public sealed record class AccountUpdateStatusResponse : JsonModel
 
     public AccountUpdateStatusResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AccountUpdateStatusResponse(AccountUpdateStatusResponse accountUpdateStatusResponse)
         : base(accountUpdateStatusResponse) { }
+#pragma warning restore CS8618
 
     public AccountUpdateStatusResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

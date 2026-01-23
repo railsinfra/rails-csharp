@@ -354,6 +354,66 @@ public class AccountTransferResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountTransferResponse
+        {
+            FromAccount = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountNumber = "account_number",
+                AccountType = FromAccountAccountType.Checking,
+                Balance = "balance",
+                Currency = "currency",
+                Environment = "environment",
+                Status = FromAccountStatus.Active,
+                UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                UserRole = "user_role",
+            },
+            ToAccount = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountNumber = "account_number",
+                AccountType = ToAccountAccountType.Checking,
+                Balance = "balance",
+                Currency = "currency",
+                Environment = "environment",
+                Status = ToAccountStatus.Active,
+                UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                UserRole = "user_role",
+            },
+            Transaction = new()
+            {
+                ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                Amount = "amount",
+                BalanceAfter = "balance_after",
+                CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Currency = "currency",
+                Status = AccountTransferResponseTransactionStatus.Pending,
+                TransactionType = AccountTransferResponseTransactionTransactionType.Deposit,
+                UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+                Description = "description",
+                ExternalRecipientID = "external_recipient_id",
+                RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            },
+        };
+
+        AccountTransferResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class FromAccountTest : TestBase
@@ -617,6 +677,31 @@ public class FromAccountTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new FromAccount
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountNumber = "account_number",
+            AccountType = FromAccountAccountType.Checking,
+            Balance = "balance",
+            Currency = "currency",
+            Environment = "environment",
+            Status = FromAccountStatus.Active,
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            UserRole = "user_role",
+        };
+
+        FromAccount copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -994,6 +1079,31 @@ public class ToAccountTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new ToAccount
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountNumber = "account_number",
+            AccountType = ToAccountAccountType.Checking,
+            Balance = "balance",
+            Currency = "currency",
+            Environment = "environment",
+            Status = ToAccountStatus.Active,
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            UserRole = "user_role",
+        };
+
+        ToAccount copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 
@@ -1376,6 +1486,31 @@ public class AccountTransferResponseTransactionTest : TestBase
         };
 
         model.Validate();
+    }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountTransferResponseTransaction
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            Amount = "amount",
+            BalanceAfter = "balance_after",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Currency = "currency",
+            Status = AccountTransferResponseTransactionStatus.Pending,
+            TransactionType = AccountTransferResponseTransactionTransactionType.Deposit,
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            Description = "description",
+            ExternalRecipientID = "external_recipient_id",
+            RecipientAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        };
+
+        AccountTransferResponseTransaction copied = new(model);
+
+        Assert.Equal(model, copied);
     }
 }
 

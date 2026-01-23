@@ -39,8 +39,11 @@ public sealed record class UserCreateResponse : JsonModel
 
     public UserCreateResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public UserCreateResponse(UserCreateResponse userCreateResponse)
         : base(userCreateResponse) { }
+#pragma warning restore CS8618
 
     public UserCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {

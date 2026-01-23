@@ -270,6 +270,31 @@ public class AccountListResponseTest : TestBase
 
         model.Validate();
     }
+
+    [Fact]
+    public void CopyConstructor_Works()
+    {
+        var model = new AccountListResponse
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AccountNumber = "account_number",
+            AccountType = AccountListResponseAccountType.Checking,
+            Balance = "balance",
+            Currency = "currency",
+            Environment = "environment",
+            Status = AccountListResponseStatus.Active,
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            UserRole = "user_role",
+        };
+
+        AccountListResponse copied = new(model);
+
+        Assert.Equal(model, copied);
+    }
 }
 
 public class AccountListResponseAccountTypeTest : TestBase

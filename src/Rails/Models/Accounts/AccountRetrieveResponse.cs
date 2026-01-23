@@ -166,8 +166,11 @@ public sealed record class AccountRetrieveResponse : JsonModel
 
     public AccountRetrieveResponse() { }
 
+#pragma warning disable CS8618
+    [SetsRequiredMembers]
     public AccountRetrieveResponse(AccountRetrieveResponse accountRetrieveResponse)
         : base(accountRetrieveResponse) { }
+#pragma warning restore CS8618
 
     public AccountRetrieveResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
