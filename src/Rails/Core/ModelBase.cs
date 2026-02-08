@@ -52,6 +52,8 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Status>(),
             new ApiEnumConverter<string, Transactions::Status>(),
             new ApiEnumConverter<string, Transactions::TransactionType>(),
+            new ApiEnumConverter<string, Transactions::DataStatus>(),
+            new ApiEnumConverter<string, Transactions::TransactionKind>(),
             new ApiEnumConverter<string, Transactions::TransactionListByAccountResponseStatus>(),
             new ApiEnumConverter<
                 string,

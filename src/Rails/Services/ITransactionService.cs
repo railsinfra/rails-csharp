@@ -43,6 +43,14 @@ public interface ITransactionService
     );
 
     /// <summary>
+    /// List transactions by organization
+    /// </summary>
+    Task<TransactionListResponse> List(
+        TransactionListParams parameters,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
     /// List account transactions
     /// </summary>
     Task<List<TransactionListByAccountResponse>> ListByAccount(
@@ -84,6 +92,15 @@ public interface ITransactionServiceWithRawResponse
     Task<HttpResponse<TransactionRetrieveResponse>> Retrieve(
         string id,
         TransactionRetrieveParams? parameters = null,
+        CancellationToken cancellationToken = default
+    );
+
+    /// <summary>
+    /// Returns a raw HTTP response for `get /api/v1/transactions`, but is otherwise the
+    /// same as <see cref="ITransactionService.List(TransactionListParams, CancellationToken)"/>.
+    /// </summary>
+    Task<HttpResponse<TransactionListResponse>> List(
+        TransactionListParams parameters,
         CancellationToken cancellationToken = default
     );
 

@@ -48,7 +48,7 @@ public class UserCreateParamsTest : TestBase
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
-        Assert.Equal(new Uri("https://api.rails.com/api/v1/users"), url);
+        Assert.Equal(new Uri("https://accounts-service-staging.up.railway.app/api/v1/users"), url);
     }
 
     [Fact]

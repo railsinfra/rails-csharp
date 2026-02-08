@@ -60,6 +60,18 @@ public sealed class TransactionService : ITransactionService
     }
 
     /// <inheritdoc/>
+    public async Task<TransactionListResponse> List(
+        TransactionListParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        using var response = await this
+            .WithRawResponse.List(parameters, cancellationToken)
+            .ConfigureAwait(false);
+        return await response.Deserialize(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public async Task<List<TransactionListByAccountResponse>> ListByAccount(
         TransactionListByAccountParams parameters,
         CancellationToken cancellationToken = default
@@ -145,6 +157,34 @@ public sealed class TransactionServiceWithRawResponse : ITransactionServiceWithR
         parameters ??= new();
 
         return this.Retrieve(parameters with { ID = id }, cancellationToken);
+    }
+
+    /// <inheritdoc/>
+    public async Task<HttpResponse<TransactionListResponse>> List(
+        TransactionListParams parameters,
+        CancellationToken cancellationToken = default
+    )
+    {
+        HttpRequest<TransactionListParams> request = new()
+        {
+            Method = HttpMethod.Get,
+            Params = parameters,
+        };
+        var response = await this._client.Execute(request, cancellationToken).ConfigureAwait(false);
+        return new(
+            response,
+            async (token) =>
+            {
+                var transactions = await response
+                    .Deserialize<TransactionListResponse>(token)
+                    .ConfigureAwait(false);
+                if (this._client.ResponseValidation)
+                {
+                    transactions.Validate();
+                }
+                return transactions;
+            }
+        );
     }
 
     /// <inheritdoc/>

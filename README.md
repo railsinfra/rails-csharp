@@ -7,7 +7,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```bash
-git clone git@github.com:sibabale/rails-csharp.git
+git clone git@github.com:stainless-sdks/rails-csharp.git
 dotnet add reference rails-csharp/src/Rails
 ```
 
@@ -63,10 +63,10 @@ Or using a combination of the two approaches.
 
 See this table for the available options:
 
-| Property  | Environment variable | Required | Default value             |
-| --------- | -------------------- | -------- | ------------------------- |
-| `ApiKey`  | `RAILS_API_KEY`      | true     | -                         |
-| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://api.rails.com"` |
+| Property  | Environment variable | Required | Default value                                       |
+| --------- | -------------------- | -------- | --------------------------------------------------- |
+| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                                   |
+| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://accounts-service-staging.up.railway.app"` |
 
 ### Modifying configuration
 
@@ -215,6 +215,17 @@ var user = await client
 Console.WriteLine(user);
 ```
 
+### Environments
+
+The SDK sends requests to the staging environment by default. To send requests to a different environment, configure the client like so:
+
+```csharp
+using Rails;
+using Rails.Core;
+
+RailsClient client = new() { BaseUrl = EnvironmentUrl.Production };
+```
+
 ## Undocumented API functionality
 
 The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
@@ -263,4 +274,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/sibabale/rails-csharp/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/rails-csharp/issues) with questions, bugs, or suggestions.
