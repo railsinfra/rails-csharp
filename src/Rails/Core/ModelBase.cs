@@ -1,7 +1,8 @@
 using System.Text.Json;
 using Rails.Exceptions;
-using Rails.Models.Accounts;
+using Rails.Models;
 using Rails.Models.Users;
+using Accounts = Rails.Models.Accounts;
 using Transactions = Rails.Models.Transactions;
 
 namespace Rails.Core;
@@ -23,13 +24,13 @@ public abstract record class ModelBase
         Converters =
         {
             new FrozenDictionaryConverterFactory(),
-            new ApiEnumConverter<string, XEnvironment>(),
-            new ApiEnumConverter<string, AccountAccountType>(),
-            new ApiEnumConverter<string, AccountStatus>(),
-            new ApiEnumConverter<string, TransactionStatus>(),
-            new ApiEnumConverter<string, TransactionType>(),
-            new ApiEnumConverter<string, AccountType>(),
             new ApiEnumConverter<string, Status>(),
+            new ApiEnumConverter<string, TransactionType>(),
+            new ApiEnumConverter<string, XEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountAccountType>(),
+            new ApiEnumConverter<string, Accounts::AccountStatus>(),
+            new ApiEnumConverter<string, Accounts::AccountType>(),
+            new ApiEnumConverter<string, Accounts::Status>(),
             new ApiEnumConverter<string, Transactions::Status>(),
             new ApiEnumConverter<string, Transactions::TransactionKind>(),
         },

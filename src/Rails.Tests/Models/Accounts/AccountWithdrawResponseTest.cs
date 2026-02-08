@@ -2,6 +2,7 @@ using System;
 using System.Text.Json;
 using Rails.Core;
 using Rails.Models.Accounts;
+using Models = Rails.Models;
 
 namespace Rails.Tests.Models.Accounts;
 
@@ -36,8 +37,8 @@ public class AccountWithdrawResponseTest : TestBase
                 BalanceAfter = "balance_after",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Currency = "currency",
-                Status = TransactionStatus.Pending,
-                TransactionType = TransactionType.Deposit,
+                Status = Models::Status.Pending,
+                TransactionType = Models::TransactionType.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Description = "description",
                 ExternalRecipientID = "external_recipient_id",
@@ -62,7 +63,7 @@ public class AccountWithdrawResponseTest : TestBase
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             UserRole = "user_role",
         };
-        Transaction expectedTransaction = new()
+        Models::Transaction expectedTransaction = new()
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -70,8 +71,8 @@ public class AccountWithdrawResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
-            TransactionType = TransactionType.Deposit,
+            Status = Models::Status.Pending,
+            TransactionType = Models::TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
             ExternalRecipientID = "external_recipient_id",
@@ -112,8 +113,8 @@ public class AccountWithdrawResponseTest : TestBase
                 BalanceAfter = "balance_after",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Currency = "currency",
-                Status = TransactionStatus.Pending,
-                TransactionType = TransactionType.Deposit,
+                Status = Models::Status.Pending,
+                TransactionType = Models::TransactionType.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Description = "description",
                 ExternalRecipientID = "external_recipient_id",
@@ -160,8 +161,8 @@ public class AccountWithdrawResponseTest : TestBase
                 BalanceAfter = "balance_after",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Currency = "currency",
-                Status = TransactionStatus.Pending,
-                TransactionType = TransactionType.Deposit,
+                Status = Models::Status.Pending,
+                TransactionType = Models::TransactionType.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Description = "description",
                 ExternalRecipientID = "external_recipient_id",
@@ -193,7 +194,7 @@ public class AccountWithdrawResponseTest : TestBase
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             UserRole = "user_role",
         };
-        Transaction expectedTransaction = new()
+        Models::Transaction expectedTransaction = new()
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -201,8 +202,8 @@ public class AccountWithdrawResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
-            TransactionType = TransactionType.Deposit,
+            Status = Models::Status.Pending,
+            TransactionType = Models::TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
             ExternalRecipientID = "external_recipient_id",
@@ -243,8 +244,8 @@ public class AccountWithdrawResponseTest : TestBase
                 BalanceAfter = "balance_after",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Currency = "currency",
-                Status = TransactionStatus.Pending,
-                TransactionType = TransactionType.Deposit,
+                Status = Models::Status.Pending,
+                TransactionType = Models::TransactionType.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Description = "description",
                 ExternalRecipientID = "external_recipient_id",
@@ -285,8 +286,8 @@ public class AccountWithdrawResponseTest : TestBase
                 BalanceAfter = "balance_after",
                 CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Currency = "currency",
-                Status = TransactionStatus.Pending,
-                TransactionType = TransactionType.Deposit,
+                Status = Models::Status.Pending,
+                TransactionType = Models::TransactionType.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
                 Description = "description",
                 ExternalRecipientID = "external_recipient_id",

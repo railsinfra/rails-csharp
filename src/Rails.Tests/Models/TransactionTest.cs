@@ -2,9 +2,9 @@ using System;
 using System.Text.Json;
 using Rails.Core;
 using Rails.Exceptions;
-using Rails.Models.Accounts;
+using Rails.Models;
 
-namespace Rails.Tests.Models.Accounts;
+namespace Rails.Tests.Models;
 
 public class TransactionTest : TestBase
 {
@@ -19,7 +19,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -34,7 +34,7 @@ public class TransactionTest : TestBase
         string expectedBalanceAfter = "balance_after";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedCurrency = "currency";
-        ApiEnum<string, TransactionStatus> expectedStatus = TransactionStatus.Pending;
+        ApiEnum<string, Status> expectedStatus = Status.Pending;
         ApiEnum<string, TransactionType> expectedTransactionType = TransactionType.Deposit;
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
@@ -68,7 +68,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -97,7 +97,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -119,7 +119,7 @@ public class TransactionTest : TestBase
         string expectedBalanceAfter = "balance_after";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedCurrency = "currency";
-        ApiEnum<string, TransactionStatus> expectedStatus = TransactionStatus.Pending;
+        ApiEnum<string, Status> expectedStatus = Status.Pending;
         ApiEnum<string, TransactionType> expectedTransactionType = TransactionType.Deposit;
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
@@ -153,7 +153,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -176,7 +176,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
         };
@@ -202,7 +202,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
         };
@@ -221,7 +221,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
 
@@ -252,7 +252,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
 
@@ -276,7 +276,7 @@ public class TransactionTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = TransactionStatus.Pending,
+            Status = Status.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -291,24 +291,24 @@ public class TransactionTest : TestBase
     }
 }
 
-public class TransactionStatusTest : TestBase
+public class StatusTest : TestBase
 {
     [Theory]
-    [InlineData(TransactionStatus.Pending)]
-    [InlineData(TransactionStatus.Completed)]
-    [InlineData(TransactionStatus.Failed)]
-    [InlineData(TransactionStatus.Cancelled)]
-    public void Validation_Works(TransactionStatus rawValue)
+    [InlineData(Status.Pending)]
+    [InlineData(Status.Completed)]
+    [InlineData(Status.Failed)]
+    [InlineData(Status.Cancelled)]
+    public void Validation_Works(Status rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, TransactionStatus> value = rawValue;
+        ApiEnum<string, Status> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -318,17 +318,17 @@ public class TransactionStatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(TransactionStatus.Pending)]
-    [InlineData(TransactionStatus.Completed)]
-    [InlineData(TransactionStatus.Failed)]
-    [InlineData(TransactionStatus.Cancelled)]
-    public void SerializationRoundtrip_Works(TransactionStatus rawValue)
+    [InlineData(Status.Pending)]
+    [InlineData(Status.Completed)]
+    [InlineData(Status.Failed)]
+    [InlineData(Status.Cancelled)]
+    public void SerializationRoundtrip_Works(Status rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, TransactionStatus> value = rawValue;
+        ApiEnum<string, Status> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -339,12 +339,12 @@ public class TransactionStatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
             json,
             ModelBase.SerializerOptions
         );
