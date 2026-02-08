@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Rails.Core;
+using Rails.Models.Accounts;
 using Rails.Models.Transactions;
 
 namespace Rails.Services;
@@ -30,13 +31,13 @@ public interface ITransactionService
     /// <summary>
     /// Retrieve transaction
     /// </summary>
-    Task<TransactionRetrieveResponse> Retrieve(
+    Task<Transaction> Retrieve(
         TransactionRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(TransactionRetrieveParams, CancellationToken)"/>
-    Task<TransactionRetrieveResponse> Retrieve(
+    Task<Transaction> Retrieve(
         string id,
         TransactionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -53,13 +54,13 @@ public interface ITransactionService
     /// <summary>
     /// List account transactions
     /// </summary>
-    Task<List<TransactionListByAccountResponse>> ListByAccount(
+    Task<List<Transaction>> ListByAccount(
         TransactionListByAccountParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="ListByAccount(TransactionListByAccountParams, CancellationToken)"/>
-    Task<List<TransactionListByAccountResponse>> ListByAccount(
+    Task<List<Transaction>> ListByAccount(
         string accountID,
         TransactionListByAccountParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -83,13 +84,13 @@ public interface ITransactionServiceWithRawResponse
     /// Returns a raw HTTP response for `get /api/v1/transactions/{id}`, but is otherwise the
     /// same as <see cref="ITransactionService.Retrieve(TransactionRetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<TransactionRetrieveResponse>> Retrieve(
+    Task<HttpResponse<Transaction>> Retrieve(
         TransactionRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(TransactionRetrieveParams, CancellationToken)"/>
-    Task<HttpResponse<TransactionRetrieveResponse>> Retrieve(
+    Task<HttpResponse<Transaction>> Retrieve(
         string id,
         TransactionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -108,13 +109,13 @@ public interface ITransactionServiceWithRawResponse
     /// Returns a raw HTTP response for `get /api/v1/accounts/{account_id}/transactions`, but is otherwise the
     /// same as <see cref="ITransactionService.ListByAccount(TransactionListByAccountParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<List<TransactionListByAccountResponse>>> ListByAccount(
+    Task<HttpResponse<List<Transaction>>> ListByAccount(
         TransactionListByAccountParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="ListByAccount(TransactionListByAccountParams, CancellationToken)"/>
-    Task<HttpResponse<List<TransactionListByAccountResponse>>> ListByAccount(
+    Task<HttpResponse<List<Transaction>>> ListByAccount(
         string accountID,
         TransactionListByAccountParams? parameters = null,
         CancellationToken cancellationToken = default

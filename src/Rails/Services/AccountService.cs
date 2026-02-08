@@ -36,7 +36,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public async Task<AccountCreateResponse> Create(
+    public async Task<Account> Create(
         AccountCreateParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -48,7 +48,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public async Task<AccountRetrieveResponse> Retrieve(
+    public async Task<Account> Retrieve(
         AccountRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -60,7 +60,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public Task<AccountRetrieveResponse> Retrieve(
+    public Task<Account> Retrieve(
         string id,
         AccountRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -72,7 +72,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public async Task<List<AccountListResponse>> List(
+    public async Task<List<Account>> List(
         AccountListParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -84,7 +84,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public async Task<AccountCloseResponse> Close(
+    public async Task<Account> Close(
         AccountCloseParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -96,7 +96,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public Task<AccountCloseResponse> Close(
+    public Task<Account> Close(
         string id,
         AccountCloseParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -152,7 +152,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public async Task<AccountUpdateStatusResponse> UpdateStatus(
+    public async Task<Account> UpdateStatus(
         AccountUpdateStatusParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -164,7 +164,7 @@ public sealed class AccountService : IAccountService
     }
 
     /// <inheritdoc/>
-    public Task<AccountUpdateStatusResponse> UpdateStatus(
+    public Task<Account> UpdateStatus(
         string id,
         AccountUpdateStatusParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -215,7 +215,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<AccountCreateResponse>> Create(
+    public async Task<HttpResponse<Account>> Create(
         AccountCreateParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -230,9 +230,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
             response,
             async (token) =>
             {
-                var account = await response
-                    .Deserialize<AccountCreateResponse>(token)
-                    .ConfigureAwait(false);
+                var account = await response.Deserialize<Account>(token).ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
                     account.Validate();
@@ -243,7 +241,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<AccountRetrieveResponse>> Retrieve(
+    public async Task<HttpResponse<Account>> Retrieve(
         AccountRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -263,9 +261,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
             response,
             async (token) =>
             {
-                var account = await response
-                    .Deserialize<AccountRetrieveResponse>(token)
-                    .ConfigureAwait(false);
+                var account = await response.Deserialize<Account>(token).ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
                     account.Validate();
@@ -276,7 +272,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse<AccountRetrieveResponse>> Retrieve(
+    public Task<HttpResponse<Account>> Retrieve(
         string id,
         AccountRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -288,7 +284,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<List<AccountListResponse>>> List(
+    public async Task<HttpResponse<List<Account>>> List(
         AccountListParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -304,7 +300,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
             async (token) =>
             {
                 var accounts = await response
-                    .Deserialize<List<AccountListResponse>>(token)
+                    .Deserialize<List<Account>>(token)
                     .ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
@@ -319,7 +315,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<AccountCloseResponse>> Close(
+    public async Task<HttpResponse<Account>> Close(
         AccountCloseParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -339,20 +335,18 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
             response,
             async (token) =>
             {
-                var deserializedResponse = await response
-                    .Deserialize<AccountCloseResponse>(token)
-                    .ConfigureAwait(false);
+                var account = await response.Deserialize<Account>(token).ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
-                    deserializedResponse.Validate();
+                    account.Validate();
                 }
-                return deserializedResponse;
+                return account;
             }
         );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse<AccountCloseResponse>> Close(
+    public Task<HttpResponse<Account>> Close(
         string id,
         AccountCloseParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -450,7 +444,7 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<AccountUpdateStatusResponse>> UpdateStatus(
+    public async Task<HttpResponse<Account>> UpdateStatus(
         AccountUpdateStatusParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -470,20 +464,18 @@ public sealed class AccountServiceWithRawResponse : IAccountServiceWithRawRespon
             response,
             async (token) =>
             {
-                var deserializedResponse = await response
-                    .Deserialize<AccountUpdateStatusResponse>(token)
-                    .ConfigureAwait(false);
+                var account = await response.Deserialize<Account>(token).ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
-                    deserializedResponse.Validate();
+                    account.Validate();
                 }
-                return deserializedResponse;
+                return account;
             }
         );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse<AccountUpdateStatusResponse>> UpdateStatus(
+    public Task<HttpResponse<Account>> UpdateStatus(
         string id,
         AccountUpdateStatusParams? parameters = null,
         CancellationToken cancellationToken = default

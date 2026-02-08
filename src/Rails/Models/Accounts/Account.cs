@@ -9,8 +9,8 @@ using Rails.Exceptions;
 
 namespace Rails.Models.Accounts;
 
-[JsonConverter(typeof(JsonModelConverter<AccountCreateResponse, AccountCreateResponseFromRaw>))]
-public sealed record class AccountCreateResponse : JsonModel
+[JsonConverter(typeof(JsonModelConverter<Account, AccountFromRaw>))]
+public sealed record class Account : JsonModel
 {
     public required string ID
     {
@@ -32,12 +32,12 @@ public sealed record class AccountCreateResponse : JsonModel
         init { this._rawData.Set("account_number", value); }
     }
 
-    public required ApiEnum<string, AccountCreateResponseAccountType> AccountType
+    public required ApiEnum<string, AccountAccountType> AccountType
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, AccountCreateResponseAccountType>>(
+            return this._rawData.GetNotNullClass<ApiEnum<string, AccountAccountType>>(
                 "account_type"
             );
         }
@@ -74,14 +74,12 @@ public sealed record class AccountCreateResponse : JsonModel
         init { this._rawData.Set("environment", value); }
     }
 
-    public required ApiEnum<string, AccountCreateResponseStatus> Status
+    public required ApiEnum<string, AccountStatus> Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, AccountCreateResponseStatus>>(
-                "status"
-            );
+            return this._rawData.GetNotNullClass<ApiEnum<string, AccountStatus>>("status");
         }
         init { this._rawData.Set("status", value); }
     }
@@ -164,55 +162,51 @@ public sealed record class AccountCreateResponse : JsonModel
         _ = this.UserRole;
     }
 
-    public AccountCreateResponse() { }
+    public Account() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public AccountCreateResponse(AccountCreateResponse accountCreateResponse)
-        : base(accountCreateResponse) { }
+    public Account(Account account)
+        : base(account) { }
 #pragma warning restore CS8618
 
-    public AccountCreateResponse(IReadOnlyDictionary<string, JsonElement> rawData)
+    public Account(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    AccountCreateResponse(FrozenDictionary<string, JsonElement> rawData)
+    Account(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="AccountCreateResponseFromRaw.FromRawUnchecked"/>
-    public static AccountCreateResponse FromRawUnchecked(
-        IReadOnlyDictionary<string, JsonElement> rawData
-    )
+    /// <inheritdoc cref="AccountFromRaw.FromRawUnchecked"/>
+    public static Account FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class AccountCreateResponseFromRaw : IFromRawJson<AccountCreateResponse>
+class AccountFromRaw : IFromRawJson<Account>
 {
     /// <inheritdoc/>
-    public AccountCreateResponse FromRawUnchecked(
-        IReadOnlyDictionary<string, JsonElement> rawData
-    ) => AccountCreateResponse.FromRawUnchecked(rawData);
+    public Account FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
+        Account.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(AccountCreateResponseAccountTypeConverter))]
-public enum AccountCreateResponseAccountType
+[JsonConverter(typeof(AccountAccountTypeConverter))]
+public enum AccountAccountType
 {
     Checking,
     Saving,
 }
 
-sealed class AccountCreateResponseAccountTypeConverter
-    : JsonConverter<AccountCreateResponseAccountType>
+sealed class AccountAccountTypeConverter : JsonConverter<AccountAccountType>
 {
-    public override AccountCreateResponseAccountType Read(
+    public override AccountAccountType Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -220,15 +214,15 @@ sealed class AccountCreateResponseAccountTypeConverter
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "checking" => AccountCreateResponseAccountType.Checking,
-            "saving" => AccountCreateResponseAccountType.Saving,
-            _ => (AccountCreateResponseAccountType)(-1),
+            "checking" => AccountAccountType.Checking,
+            "saving" => AccountAccountType.Saving,
+            _ => (AccountAccountType)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        AccountCreateResponseAccountType value,
+        AccountAccountType value,
         JsonSerializerOptions options
     )
     {
@@ -236,8 +230,8 @@ sealed class AccountCreateResponseAccountTypeConverter
             writer,
             value switch
             {
-                AccountCreateResponseAccountType.Checking => "checking",
-                AccountCreateResponseAccountType.Saving => "saving",
+                AccountAccountType.Checking => "checking",
+                AccountAccountType.Saving => "saving",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -247,17 +241,17 @@ sealed class AccountCreateResponseAccountTypeConverter
     }
 }
 
-[JsonConverter(typeof(AccountCreateResponseStatusConverter))]
-public enum AccountCreateResponseStatus
+[JsonConverter(typeof(AccountStatusConverter))]
+public enum AccountStatus
 {
     Active,
     Suspended,
     Closed,
 }
 
-sealed class AccountCreateResponseStatusConverter : JsonConverter<AccountCreateResponseStatus>
+sealed class AccountStatusConverter : JsonConverter<AccountStatus>
 {
-    public override AccountCreateResponseStatus Read(
+    public override AccountStatus Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -265,16 +259,16 @@ sealed class AccountCreateResponseStatusConverter : JsonConverter<AccountCreateR
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "active" => AccountCreateResponseStatus.Active,
-            "suspended" => AccountCreateResponseStatus.Suspended,
-            "closed" => AccountCreateResponseStatus.Closed,
-            _ => (AccountCreateResponseStatus)(-1),
+            "active" => AccountStatus.Active,
+            "suspended" => AccountStatus.Suspended,
+            "closed" => AccountStatus.Closed,
+            _ => (AccountStatus)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        AccountCreateResponseStatus value,
+        AccountStatus value,
         JsonSerializerOptions options
     )
     {
@@ -282,9 +276,9 @@ sealed class AccountCreateResponseStatusConverter : JsonConverter<AccountCreateR
             writer,
             value switch
             {
-                AccountCreateResponseStatus.Active => "active",
-                AccountCreateResponseStatus.Suspended => "suspended",
-                AccountCreateResponseStatus.Closed => "closed",
+                AccountStatus.Active => "active",
+                AccountStatus.Suspended => "suspended",
+                AccountStatus.Closed => "closed",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
