@@ -66,7 +66,7 @@ See this table for the available options:
 | Property  | Environment variable | Required | Default value             |
 | --------- | -------------------- | -------- | ------------------------- |
 | `ApiKey`  | `RAILS_API_KEY`      | true     | -                         |
-| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://api.rails.com"` |
+| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://api.railsinfra.com"` |
 
 ### Modifying configuration
 

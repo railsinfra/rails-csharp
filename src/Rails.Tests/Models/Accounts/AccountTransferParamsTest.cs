@@ -71,7 +71,7 @@ public class AccountTransferParamsTest : TestBase
 
         Assert.Equal(
             new Uri(
-                "https://api.rails.com/api/v1/accounts/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/transfer"
+                "https://api.railsinfra.com/api/v1/accounts/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e/transfer"
             ),
             url
         );
