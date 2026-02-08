@@ -28,10 +28,10 @@ RailsClient client = new();
 
 UserCreateParams parameters = new()
 {
-    Email = "dev@stainless.com",
-    FirstName = "first_name",
-    LastName = "last_name",
-    Password = "password",
+    Email = "jane@example.com",
+    FirstName = "Jane",
+    LastName = "Doe",
+    Password = "your-secure-password",
     XEnvironment = XEnvironment.Sandbox,
 };
 

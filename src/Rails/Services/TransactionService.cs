@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Rails.Core;
 using Rails.Exceptions;
-using Rails.Models.Accounts;
+using Rails.Models;
 using Rails.Models.Transactions;
 
 namespace Rails.Services;

@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 using Rails.Core;
 using Rails.Exceptions;
 
-namespace Rails.Models.Accounts;
+namespace Rails.Models;
 
 [JsonConverter(typeof(JsonModelConverter<Transaction, TransactionFromRaw>))]
 public sealed record class Transaction : JsonModel
@@ -72,12 +72,12 @@ public sealed record class Transaction : JsonModel
         init { this._rawData.Set("currency", value); }
     }
 
-    public required ApiEnum<string, TransactionStatus> Status
+    public required ApiEnum<string, Status> Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, TransactionStatus>>("status");
+            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
         }
         init { this._rawData.Set("status", value); }
     }
@@ -197,8 +197,8 @@ class TransactionFromRaw : IFromRawJson<Transaction>
         Transaction.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(TransactionStatusConverter))]
-public enum TransactionStatus
+[JsonConverter(typeof(StatusConverter))]
+public enum Status
 {
     Pending,
     Completed,
@@ -206,9 +206,9 @@ public enum TransactionStatus
     Cancelled,
 }
 
-sealed class TransactionStatusConverter : JsonConverter<TransactionStatus>
+sealed class StatusConverter : JsonConverter<Status>
 {
-    public override TransactionStatus Read(
+    public override Status Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -216,28 +216,24 @@ sealed class TransactionStatusConverter : JsonConverter<TransactionStatus>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "pending" => TransactionStatus.Pending,
-            "completed" => TransactionStatus.Completed,
-            "failed" => TransactionStatus.Failed,
-            "cancelled" => TransactionStatus.Cancelled,
-            _ => (TransactionStatus)(-1),
+            "pending" => Status.Pending,
+            "completed" => Status.Completed,
+            "failed" => Status.Failed,
+            "cancelled" => Status.Cancelled,
+            _ => (Status)(-1),
         };
     }
 
-    public override void Write(
-        Utf8JsonWriter writer,
-        TransactionStatus value,
-        JsonSerializerOptions options
-    )
+    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                TransactionStatus.Pending => "pending",
-                TransactionStatus.Completed => "completed",
-                TransactionStatus.Failed => "failed",
-                TransactionStatus.Cancelled => "cancelled",
+                Status.Pending => "pending",
+                Status.Completed => "completed",
+                Status.Failed => "failed",
+                Status.Cancelled => "cancelled",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
