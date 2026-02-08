@@ -30,7 +30,7 @@ public class TransactionRetrieveParamsTest : TestBase
 
         Assert.Equal(
             new Uri(
-                "https://api.rails.com/api/v1/transactions/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
+                "https://accounts-service-staging.up.railway.app/api/v1/transactions/182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"
             ),
             url
         );

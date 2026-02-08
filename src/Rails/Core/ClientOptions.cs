@@ -25,13 +25,20 @@ public record struct ClientOptions()
     public HttpClient HttpClient { get; set; } = new();
 
     Lazy<string> _baseUrl = new(() =>
-        Environment.GetEnvironmentVariable("RAILS_BASE_URL") ?? EnvironmentUrl.Production
+        Environment.GetEnvironmentVariable("RAILS_BASE_URL") ?? EnvironmentUrl.Staging
     );
 
     /// <summary>
     /// The base URL to use for every request.
     ///
-    /// <para>Defaults to the production environment: <see cref="EnvironmentUrl.Production"/></para>
+    /// <para>Defaults to the staging environment: <see cref="EnvironmentUrl.Staging"/></para>
+    ///
+    /// <para>
+    /// The following other environments are available:
+    /// <list type="bullet">
+    ///   <item>production: <see cref="EnvironmentUrl.Production"/></item>
+    /// </list>
+    /// </para>
     /// </summary>
     public string BaseUrl
     {

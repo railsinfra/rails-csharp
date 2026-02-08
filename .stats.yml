@@ -1,4 +1,4 @@
-configured_endpoints: 11
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/rails%2Frails-82f3bb8d83821e0889713726114624fa58e4f93aa14a615ec324f77c23955801.yml
-openapi_spec_hash: 4601c075f561f2e98c6037d4209f668b
-config_hash: a65e59d86b53a8d0a1e4ac41f000755a
+configured_endpoints: 12
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/rails%2Frails-d2f03ef7c9ac8b9c73df9a79cf6ce56b6adbc9eee60a81e0f83773b58693c7ed.yml
+openapi_spec_hash: 32021e952c53fe5bd6d90418b6b4afba
+config_hash: 8e3b2e10a20dd67d93a032bcbe807b6b
