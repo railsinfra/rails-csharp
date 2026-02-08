@@ -2,16 +2,16 @@ using System;
 using System.Text.Json;
 using Rails.Core;
 using Rails.Exceptions;
-using Rails.Models.Transactions;
+using Rails.Models.Accounts;
 
-namespace Rails.Tests.Models.Transactions;
+namespace Rails.Tests.Models.Accounts;
 
-public class TransactionRetrieveResponseTest : TestBase
+public class TransactionTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -19,7 +19,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -34,7 +34,7 @@ public class TransactionRetrieveResponseTest : TestBase
         string expectedBalanceAfter = "balance_after";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedCurrency = "currency";
-        ApiEnum<string, Status> expectedStatus = Status.Pending;
+        ApiEnum<string, TransactionStatus> expectedStatus = TransactionStatus.Pending;
         ApiEnum<string, TransactionType> expectedTransactionType = TransactionType.Deposit;
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
@@ -60,7 +60,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -68,7 +68,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -78,7 +78,7 @@ public class TransactionRetrieveResponseTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<TransactionRetrieveResponse>(
+        var deserialized = JsonSerializer.Deserialize<Transaction>(
             json,
             ModelBase.SerializerOptions
         );
@@ -89,7 +89,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -97,7 +97,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -107,7 +107,7 @@ public class TransactionRetrieveResponseTest : TestBase
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<TransactionRetrieveResponse>(
+        var deserialized = JsonSerializer.Deserialize<Transaction>(
             element,
             ModelBase.SerializerOptions
         );
@@ -119,7 +119,7 @@ public class TransactionRetrieveResponseTest : TestBase
         string expectedBalanceAfter = "balance_after";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedCurrency = "currency";
-        ApiEnum<string, Status> expectedStatus = Status.Pending;
+        ApiEnum<string, TransactionStatus> expectedStatus = TransactionStatus.Pending;
         ApiEnum<string, TransactionType> expectedTransactionType = TransactionType.Deposit;
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
         string expectedDescription = "description";
@@ -145,7 +145,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -153,7 +153,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -168,7 +168,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -176,7 +176,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
         };
@@ -194,7 +194,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetValidation_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -202,7 +202,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
         };
@@ -213,7 +213,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -221,7 +221,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
 
@@ -244,7 +244,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -252,7 +252,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
 
@@ -268,7 +268,7 @@ public class TransactionRetrieveResponseTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new TransactionRetrieveResponse
+        var model = new Transaction
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -276,7 +276,7 @@ public class TransactionRetrieveResponseTest : TestBase
             BalanceAfter = "balance_after",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Currency = "currency",
-            Status = Status.Pending,
+            Status = TransactionStatus.Pending,
             TransactionType = TransactionType.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
             Description = "description",
@@ -285,30 +285,30 @@ public class TransactionRetrieveResponseTest : TestBase
             ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
-        TransactionRetrieveResponse copied = new(model);
+        Transaction copied = new(model);
 
         Assert.Equal(model, copied);
     }
 }
 
-public class StatusTest : TestBase
+public class TransactionStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Pending)]
-    [InlineData(Status.Completed)]
-    [InlineData(Status.Failed)]
-    [InlineData(Status.Cancelled)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(TransactionStatus.Pending)]
+    [InlineData(TransactionStatus.Completed)]
+    [InlineData(TransactionStatus.Failed)]
+    [InlineData(TransactionStatus.Cancelled)]
+    public void Validation_Works(TransactionStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, TransactionStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -318,17 +318,17 @@ public class StatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(Status.Pending)]
-    [InlineData(Status.Completed)]
-    [InlineData(Status.Failed)]
-    [InlineData(Status.Cancelled)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(TransactionStatus.Pending)]
+    [InlineData(TransactionStatus.Completed)]
+    [InlineData(TransactionStatus.Failed)]
+    [InlineData(TransactionStatus.Cancelled)]
+    public void SerializationRoundtrip_Works(TransactionStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, TransactionStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -339,12 +339,12 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, TransactionStatus>>(
             json,
             ModelBase.SerializerOptions
         );
