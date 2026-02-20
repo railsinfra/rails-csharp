@@ -5,7 +5,7 @@ namespace Rails.Tests.Services;
 
 public class UserServiceTest : TestBase
 {
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Create_Works()
     {
         var user = await this.client.Users.Create(

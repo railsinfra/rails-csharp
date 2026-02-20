@@ -4,7 +4,7 @@ namespace Rails.Tests.Services;
 
 public class TransactionServiceTest : TestBase
 {
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Retrieve_Works()
     {
         var transaction = await this.client.Transactions.Retrieve(
@@ -15,7 +15,7 @@ public class TransactionServiceTest : TestBase
         transaction.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task List_Works()
     {
         var transactions = await this.client.Transactions.List(
@@ -25,7 +25,7 @@ public class TransactionServiceTest : TestBase
         transactions.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task ListByAccount_Works()
     {
         var transactions = await this.client.Transactions.ListByAccount(
