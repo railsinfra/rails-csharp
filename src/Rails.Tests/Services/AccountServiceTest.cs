@@ -5,7 +5,7 @@ namespace Rails.Tests.Services;
 
 public class AccountServiceTest : TestBase
 {
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Create_Works()
     {
         var account = await this.client.Accounts.Create(
@@ -19,7 +19,7 @@ public class AccountServiceTest : TestBase
         account.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Retrieve_Works()
     {
         var account = await this.client.Accounts.Retrieve(
@@ -30,7 +30,7 @@ public class AccountServiceTest : TestBase
         account.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task List_Works()
     {
         var accounts = await this.client.Accounts.List(
@@ -43,7 +43,7 @@ public class AccountServiceTest : TestBase
         }
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Close_Works()
     {
         var account = await this.client.Accounts.Close(
@@ -54,7 +54,7 @@ public class AccountServiceTest : TestBase
         account.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Deposit_Works()
     {
         var response = await this.client.Accounts.Deposit(
@@ -65,7 +65,7 @@ public class AccountServiceTest : TestBase
         response.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Transfer_Works()
     {
         var response = await this.client.Accounts.Transfer(
@@ -76,7 +76,7 @@ public class AccountServiceTest : TestBase
         response.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task UpdateStatus_Works()
     {
         var account = await this.client.Accounts.UpdateStatus(
@@ -87,7 +87,7 @@ public class AccountServiceTest : TestBase
         account.Validate();
     }
 
-    [Fact(Skip = "Prism tests are disabled")]
+    [Fact(Skip = "Mock server tests are disabled")]
     public async Task Withdraw_Works()
     {
         var response = await this.client.Accounts.Withdraw(
