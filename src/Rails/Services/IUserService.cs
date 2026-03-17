@@ -51,7 +51,7 @@ public interface IUserServiceWithRawResponse
     IUserServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /api/v1/users`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /api/v1/users</c>, but is otherwise the
     /// same as <see cref="IUserService.Create(UserCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<UserCreateResponse>> Create(
