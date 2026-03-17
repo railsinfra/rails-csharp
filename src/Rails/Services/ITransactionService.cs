@@ -83,7 +83,7 @@ public interface ITransactionServiceWithRawResponse
     ITransactionServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /api/v1/transactions/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /api/v1/transactions/{id}</c>, but is otherwise the
     /// same as <see cref="ITransactionService.Retrieve(TransactionRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<Transaction>> Retrieve(
@@ -99,7 +99,7 @@ public interface ITransactionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /api/v1/transactions`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /api/v1/transactions</c>, but is otherwise the
     /// same as <see cref="ITransactionService.List(TransactionListParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<TransactionListResponse>> List(
@@ -108,7 +108,7 @@ public interface ITransactionServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /api/v1/accounts/{account_id}/transactions`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /api/v1/accounts/{account_id}/transactions</c>, but is otherwise the
     /// same as <see cref="ITransactionService.ListByAccount(TransactionListByAccountParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<List<Transaction>>> ListByAccount(

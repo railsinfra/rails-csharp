@@ -150,7 +150,7 @@ public interface IAccountServiceWithRawResponse
     IAccountServiceWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /api/v1/accounts`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /api/v1/accounts</c>, but is otherwise the
     /// same as <see cref="IAccountService.Create(AccountCreateParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<Account>> Create(
@@ -159,7 +159,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /api/v1/accounts/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /api/v1/accounts/{id}</c>, but is otherwise the
     /// same as <see cref="IAccountService.Retrieve(AccountRetrieveParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<Account>> Retrieve(
@@ -175,7 +175,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `get /api/v1/accounts`, but is otherwise the
+    /// Returns a raw HTTP response for <c>get /api/v1/accounts</c>, but is otherwise the
     /// same as <see cref="IAccountService.List(AccountListParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<List<Account>>> List(
@@ -184,7 +184,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `delete /api/v1/accounts/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>delete /api/v1/accounts/{id}</c>, but is otherwise the
     /// same as <see cref="IAccountService.Close(AccountCloseParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<Account>> Close(
@@ -200,7 +200,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /api/v1/accounts/{id}/deposit`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /api/v1/accounts/{id}/deposit</c>, but is otherwise the
     /// same as <see cref="IAccountService.Deposit(AccountDepositParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AccountDepositResponse>> Deposit(
@@ -216,7 +216,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /api/v1/accounts/{id}/transfer`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /api/v1/accounts/{id}/transfer</c>, but is otherwise the
     /// same as <see cref="IAccountService.Transfer(AccountTransferParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AccountTransferResponse>> Transfer(
@@ -232,7 +232,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `patch /api/v1/accounts/{id}`, but is otherwise the
+    /// Returns a raw HTTP response for <c>patch /api/v1/accounts/{id}</c>, but is otherwise the
     /// same as <see cref="IAccountService.UpdateStatus(AccountUpdateStatusParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<Account>> UpdateStatus(
@@ -248,7 +248,7 @@ public interface IAccountServiceWithRawResponse
     );
 
     /// <summary>
-    /// Returns a raw HTTP response for `post /api/v1/accounts/{id}/withdraw`, but is otherwise the
+    /// Returns a raw HTTP response for <c>post /api/v1/accounts/{id}/withdraw</c>, but is otherwise the
     /// same as <see cref="IAccountService.Withdraw(AccountWithdrawParams, CancellationToken)"/>.
     /// </summary>
     Task<HttpResponse<AccountWithdrawResponse>> Withdraw(
