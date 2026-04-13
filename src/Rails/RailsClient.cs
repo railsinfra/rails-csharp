@@ -72,12 +72,6 @@ public sealed class RailsClient : IRailsClient
         return new RailsClient(modifier(this._options));
     }
 
-    readonly Lazy<IUserService> _users;
-    public IUserService Users
-    {
-        get { return _users.Value; }
-    }
-
     readonly Lazy<IAccountService> _accounts;
     public IAccountService Accounts
     {
@@ -97,7 +91,6 @@ public sealed class RailsClient : IRailsClient
         _options = new();
 
         _withRawResponse = new(() => new RailsClientWithRawResponse(this._options));
-        _users = new(() => new UserService(this));
         _accounts = new(() => new AccountService(this));
         _transactions = new(() => new TransactionService(this));
     }
@@ -173,12 +166,6 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
     public IRailsClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier)
     {
         return new RailsClientWithRawResponse(modifier(this._options));
-    }
-
-    readonly Lazy<IUserServiceWithRawResponse> _users;
-    public IUserServiceWithRawResponse Users
-    {
-        get { return _users.Value; }
     }
 
     readonly Lazy<IAccountServiceWithRawResponse> _accounts;
@@ -391,7 +378,6 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
     {
         _options = new();
 
-        _users = new(() => new UserServiceWithRawResponse(this));
         _accounts = new(() => new AccountServiceWithRawResponse(this));
         _transactions = new(() => new TransactionServiceWithRawResponse(this));
     }

@@ -36,16 +36,6 @@ public record class AccountCreateParams : ParamsBase
         init { this._rawBodyData.Set("account_type", value); }
     }
 
-    public required string UserID
-    {
-        get
-        {
-            this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNotNullClass<string>("user_id");
-        }
-        init { this._rawBodyData.Set("user_id", value); }
-    }
-
     public string? Currency
     {
         get
@@ -64,6 +54,19 @@ public record class AccountCreateParams : ParamsBase
         }
     }
 
+    /// <summary>
+    /// Holder-based: unique per org+env. Requires X-API-Key.
+    /// </summary>
+    public string? Email
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("email");
+        }
+        init { this._rawBodyData.Set("email", value); }
+    }
+
     public string? Environment
     {
         get
@@ -74,6 +77,32 @@ public record class AccountCreateParams : ParamsBase
         init { this._rawBodyData.Set("environment", value); }
     }
 
+    /// <summary>
+    /// Holder-based: holder first name.
+    /// </summary>
+    public string? FirstName
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("first_name");
+        }
+        init { this._rawBodyData.Set("first_name", value); }
+    }
+
+    /// <summary>
+    /// Holder-based: holder last name.
+    /// </summary>
+    public string? LastName
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("last_name");
+        }
+        init { this._rawBodyData.Set("last_name", value); }
+    }
+
     public string? OrganizationID
     {
         get
@@ -82,6 +111,19 @@ public record class AccountCreateParams : ParamsBase
             return this._rawBodyData.GetNullableClass<string>("organization_id");
         }
         init { this._rawBodyData.Set("organization_id", value); }
+    }
+
+    /// <summary>
+    /// Legacy: platform user ID. Omit when using holder (email + names).
+    /// </summary>
+    public string? UserID
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNullableClass<string>("user_id");
+        }
+        init { this._rawBodyData.Set("user_id", value); }
     }
 
     public AccountCreateParams() { }

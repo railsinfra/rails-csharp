@@ -22,22 +22,15 @@ See the [`examples`](examples) directory for complete and runnable examples.
 ```csharp
 using System;
 using Rails;
-using Rails.Models.Users;
+using Rails.Models.Accounts;
 
 RailsClient client = new();
 
-UserCreateParams parameters = new()
-{
-    Email = "jane@example.com",
-    FirstName = "Jane",
-    LastName = "Doe",
-    Password = "your-secure-password",
-    XEnvironment = XEnvironment.Sandbox,
-};
+AccountCreateParams parameters = new() { AccountType = AccountType.Checking };
 
-var user = await client.Users.Create(parameters);
+var account = await client.Accounts.Create(parameters);
 
-Console.WriteLine(user);
+Console.WriteLine(account);
 ```
 
 ## Client configuration
@@ -75,7 +68,7 @@ To temporarily use a modified client configuration, while reusing the same conne
 ```csharp
 using System;
 
-var user = await client
+var account = await client
     .WithOptions(options =>
         options with
         {
@@ -83,9 +76,9 @@ var user = await client
             Timeout = TimeSpan.FromSeconds(42),
         }
     )
-    .Users.Create(parameters);
+    .Accounts.Create(parameters);
 
-Console.WriteLine(user);
+Console.WriteLine(account);
 ```
 
 Using a [`with` expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) makes it easy to construct the modified options.
@@ -96,7 +89,7 @@ The `WithOptions` method does not affect the original client or service.
 
 To send a request to the Rails API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a C# class.
 
-For example, `client.Users.Create` should be called with an instance of `UserCreateParams`, and it will return an instance of `Task<UserCreateResponse>`.
+For example, `client.Accounts.Create` should be called with an instance of `AccountCreateParams`, and it will return an instance of `Task<AccountCreateResponse>`.
 
 ## Raw responses
 
@@ -105,7 +98,7 @@ The SDK defines methods that deserialize responses into instances of C# classes.
 To access this data, prefix any HTTP method call on a client or service with `WithRawResponse`:
 
 ```csharp
-var response = await client.WithRawResponse.Users.Create(parameters);
+var response = await client.WithRawResponse.Accounts.Create(parameters);
 var statusCode = response.StatusCode;
 var headers = response.Headers;
 ```
@@ -116,10 +109,10 @@ For non-streaming responses, you can deserialize the response into an instance o
 
 ```csharp
 using System;
-using Rails.Models.Users;
+using Rails.Models.Accounts;
 
-var response = await client.WithRawResponse.Users.Create(parameters);
-UserCreateResponse deserialized = await response.Deserialize();
+var response = await client.WithRawResponse.Accounts.Create(parameters);
+AccountCreateResponse deserialized = await response.Deserialize();
 Console.WriteLine(deserialized);
 ```
 
@@ -177,13 +170,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var user = await client
+var account = await client
     .WithOptions(options =>
         options with { MaxRetries = 3 }
     )
-    .Users.Create(parameters);
+    .Accounts.Create(parameters);
 
-Console.WriteLine(user);
+Console.WriteLine(account);
 ```
 
 ### Timeouts
@@ -204,13 +197,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var user = await client
+var account = await client
     .WithOptions(options =>
         options with { Timeout = TimeSpan.FromSeconds(42) }
     )
-    .Users.Create(parameters);
+    .Accounts.Create(parameters);
 
-Console.WriteLine(user);
+Console.WriteLine(account);
 ```
 
 ### Proxies
@@ -255,9 +248,9 @@ To set undocumented parameters, a constructor exists that accepts dictionaries f
 ```csharp
 using System.Collections.Generic;
 using System.Text.Json;
-using Rails.Models.Users;
+using Rails.Models.Accounts;
 
-UserCreateParams parameters = new
+AccountCreateParams parameters = new
 (
     rawHeaderData: new Dictionary<string, JsonElement>()
     {
@@ -277,7 +270,7 @@ UserCreateParams parameters = new
 {
     // Documented properties can still be added here.
     // In case of conflict, these parameters take precedence over the custom parameters.
-    Email = "dev@stainless.com"
+    AccountType = AccountType.Checking
 };
 ```
 
@@ -288,9 +281,9 @@ This can also be used to set a documented parameter to an undocumented or not ye
 ```csharp
 using System.Collections.Generic;
 using System.Text.Json;
-using Rails.Models.Users;
+using Rails.Models.Accounts;
 
-var parameters = UserCreateParams.FromRawUnchecked
+var parameters = AccountCreateParams.FromRawUnchecked
 (
 
     rawHeaderData: new Dictionary<string, JsonElement>(),
@@ -298,7 +291,7 @@ var parameters = UserCreateParams.FromRawUnchecked
     rawBodyData: new Dictionary<string, JsonElement>
     {
         {
-            "email",
+            "account_type",
             JsonSerializer.SerializeToElement("custom value")
         }
     }
@@ -312,7 +305,7 @@ To access undocumented response properties, the `RawData` property can be used:
 ```csharp
 using System.Text.Json;
 
-var response = client.Users.Create(parameters)
+var response = client.Accounts.Create(parameters)
 if (response.RawData.TryGetValue("my_custom_key", out JsonElement value))
 {
     // Do something with `value`
@@ -330,8 +323,8 @@ By default, the SDK will not throw an exception in this case. It will throw `Rai
 If you would prefer to check that the response is completely well-typed upfront, then either call `Validate`:
 
 ```csharp
-var user = client.Users.Create(parameters);
-user.Validate();
+var account = client.Accounts.Create(parameters);
+account.Validate();
 ```
 
 Or configure the client using the `ResponseValidation` option:
@@ -347,13 +340,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var user = await client
+var account = await client
     .WithOptions(options =>
         options with { ResponseValidation = true }
     )
-    .Users.Create(parameters);
+    .Accounts.Create(parameters);
 
-Console.WriteLine(user);
+Console.WriteLine(account);
 ```
 
 ## Semantic versioning

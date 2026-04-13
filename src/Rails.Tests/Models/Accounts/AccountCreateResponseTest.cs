@@ -6,20 +6,20 @@ using Rails.Models.Accounts;
 
 namespace Rails.Tests.Models.Accounts;
 
-public class AccountTest : TestBase
+public class AccountCreateResponseTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -30,11 +30,13 @@ public class AccountTest : TestBase
 
         string expectedID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedAccountNumber = "account_number";
-        ApiEnum<string, AccountAccountType> expectedAccountType = AccountAccountType.Checking;
+        ApiEnum<string, AccountCreateResponseAccountType> expectedAccountType =
+            AccountCreateResponseAccountType.Checking;
         string expectedBalance = "balance";
         string expectedCurrency = "currency";
         string expectedEnvironment = "environment";
-        ApiEnum<string, AccountStatus> expectedStatus = AccountStatus.Active;
+        ApiEnum<string, AccountCreateResponseStatus> expectedStatus =
+            AccountCreateResponseStatus.Active;
         string expectedUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedAdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
@@ -60,15 +62,15 @@ public class AccountTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -78,7 +80,10 @@ public class AccountTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Account>(json, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<AccountCreateResponse>(
+            json,
+            ModelBase.SerializerOptions
+        );
 
         Assert.Equal(model, deserialized);
     }
@@ -86,15 +91,15 @@ public class AccountTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -104,7 +109,7 @@ public class AccountTest : TestBase
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Account>(
+        var deserialized = JsonSerializer.Deserialize<AccountCreateResponse>(
             element,
             ModelBase.SerializerOptions
         );
@@ -112,11 +117,13 @@ public class AccountTest : TestBase
 
         string expectedID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedAccountNumber = "account_number";
-        ApiEnum<string, AccountAccountType> expectedAccountType = AccountAccountType.Checking;
+        ApiEnum<string, AccountCreateResponseAccountType> expectedAccountType =
+            AccountCreateResponseAccountType.Checking;
         string expectedBalance = "balance";
         string expectedCurrency = "currency";
         string expectedEnvironment = "environment";
-        ApiEnum<string, AccountStatus> expectedStatus = AccountStatus.Active;
+        ApiEnum<string, AccountCreateResponseStatus> expectedStatus =
+            AccountCreateResponseStatus.Active;
         string expectedUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedAdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         DateTimeOffset expectedCreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
@@ -142,15 +149,15 @@ public class AccountTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -165,15 +172,15 @@ public class AccountTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
@@ -192,15 +199,15 @@ public class AccountTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
@@ -210,15 +217,15 @@ public class AccountTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 
             AdminUserID = null,
@@ -243,15 +250,15 @@ public class AccountTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 
             AdminUserID = null,
@@ -267,15 +274,15 @@ public class AccountTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new Account
+        var model = new AccountCreateResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountNumber = "account_number",
-            AccountType = AccountAccountType.Checking,
+            AccountType = AccountCreateResponseAccountType.Checking,
             Balance = "balance",
             Currency = "currency",
             Environment = "environment",
-            Status = AccountStatus.Active,
+            Status = AccountCreateResponseStatus.Active,
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AdminUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             CreatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -284,28 +291,28 @@ public class AccountTest : TestBase
             UserRole = "user_role",
         };
 
-        Account copied = new(model);
+        AccountCreateResponse copied = new(model);
 
         Assert.Equal(model, copied);
     }
 }
 
-public class AccountAccountTypeTest : TestBase
+public class AccountCreateResponseAccountTypeTest : TestBase
 {
     [Theory]
-    [InlineData(AccountAccountType.Checking)]
-    [InlineData(AccountAccountType.Saving)]
-    public void Validation_Works(AccountAccountType rawValue)
+    [InlineData(AccountCreateResponseAccountType.Checking)]
+    [InlineData(AccountCreateResponseAccountType.Saving)]
+    public void Validation_Works(AccountCreateResponseAccountType rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, AccountAccountType> value = rawValue;
+        ApiEnum<string, AccountCreateResponseAccountType> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountAccountType>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountCreateResponseAccountType>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -315,18 +322,17 @@ public class AccountAccountTypeTest : TestBase
     }
 
     [Theory]
-    [InlineData(AccountAccountType.Checking)]
-    [InlineData(AccountAccountType.Saving)]
-    public void SerializationRoundtrip_Works(AccountAccountType rawValue)
+    [InlineData(AccountCreateResponseAccountType.Checking)]
+    [InlineData(AccountCreateResponseAccountType.Saving)]
+    public void SerializationRoundtrip_Works(AccountCreateResponseAccountType rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, AccountAccountType> value = rawValue;
+        ApiEnum<string, AccountCreateResponseAccountType> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AccountAccountType>>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, AccountCreateResponseAccountType>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }
@@ -334,37 +340,36 @@ public class AccountAccountTypeTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountAccountType>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountCreateResponseAccountType>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AccountAccountType>>(
-            json,
-            ModelBase.SerializerOptions
-        );
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, AccountCreateResponseAccountType>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }
 }
 
-public class AccountStatusTest : TestBase
+public class AccountCreateResponseStatusTest : TestBase
 {
     [Theory]
-    [InlineData(AccountStatus.Active)]
-    [InlineData(AccountStatus.Suspended)]
-    [InlineData(AccountStatus.Closed)]
-    public void Validation_Works(AccountStatus rawValue)
+    [InlineData(AccountCreateResponseStatus.Active)]
+    [InlineData(AccountCreateResponseStatus.Suspended)]
+    [InlineData(AccountCreateResponseStatus.Closed)]
+    public void Validation_Works(AccountCreateResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, AccountStatus> value = rawValue;
+        ApiEnum<string, AccountCreateResponseStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountStatus>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountCreateResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -374,16 +379,16 @@ public class AccountStatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(AccountStatus.Active)]
-    [InlineData(AccountStatus.Suspended)]
-    [InlineData(AccountStatus.Closed)]
-    public void SerializationRoundtrip_Works(AccountStatus rawValue)
+    [InlineData(AccountCreateResponseStatus.Active)]
+    [InlineData(AccountCreateResponseStatus.Suspended)]
+    [InlineData(AccountCreateResponseStatus.Closed)]
+    public void SerializationRoundtrip_Works(AccountCreateResponseStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, AccountStatus> value = rawValue;
+        ApiEnum<string, AccountCreateResponseStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AccountStatus>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AccountCreateResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -394,12 +399,12 @@ public class AccountStatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountStatus>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, AccountCreateResponseStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AccountStatus>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AccountCreateResponseStatus>>(
             json,
             ModelBase.SerializerOptions
         );

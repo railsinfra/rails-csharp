@@ -32,7 +32,7 @@ public interface IAccountService
     /// <summary>
     /// Create account
     /// </summary>
-    Task<Account> Create(
+    Task<AccountCreateResponse> Create(
         AccountCreateParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -40,13 +40,13 @@ public interface IAccountService
     /// <summary>
     /// Retrieve account
     /// </summary>
-    Task<Account> Retrieve(
+    Task<AccountRetrieveResponse> Retrieve(
         AccountRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(AccountRetrieveParams, CancellationToken)"/>
-    Task<Account> Retrieve(
+    Task<AccountRetrieveResponse> Retrieve(
         string id,
         AccountRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -55,7 +55,7 @@ public interface IAccountService
     /// <summary>
     /// List accounts
     /// </summary>
-    Task<List<Account>> List(
+    Task<List<AccountListResponse>> List(
         AccountListParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -63,13 +63,13 @@ public interface IAccountService
     /// <summary>
     /// Close account
     /// </summary>
-    Task<Account> Close(
+    Task<AccountCloseResponse> Close(
         AccountCloseParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Close(AccountCloseParams, CancellationToken)"/>
-    Task<Account> Close(
+    Task<AccountCloseResponse> Close(
         string id,
         AccountCloseParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -108,13 +108,13 @@ public interface IAccountService
     /// <summary>
     /// Update account status
     /// </summary>
-    Task<Account> UpdateStatus(
+    Task<AccountUpdateStatusResponse> UpdateStatus(
         AccountUpdateStatusParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="UpdateStatus(AccountUpdateStatusParams, CancellationToken)"/>
-    Task<Account> UpdateStatus(
+    Task<AccountUpdateStatusResponse> UpdateStatus(
         string id,
         AccountUpdateStatusParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -153,7 +153,7 @@ public interface IAccountServiceWithRawResponse
     /// Returns a raw HTTP response for <c>post /api/v1/accounts</c>, but is otherwise the
     /// same as <see cref="IAccountService.Create(AccountCreateParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<Account>> Create(
+    Task<HttpResponse<AccountCreateResponse>> Create(
         AccountCreateParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -162,13 +162,13 @@ public interface IAccountServiceWithRawResponse
     /// Returns a raw HTTP response for <c>get /api/v1/accounts/{id}</c>, but is otherwise the
     /// same as <see cref="IAccountService.Retrieve(AccountRetrieveParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<Account>> Retrieve(
+    Task<HttpResponse<AccountRetrieveResponse>> Retrieve(
         AccountRetrieveParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Retrieve(AccountRetrieveParams, CancellationToken)"/>
-    Task<HttpResponse<Account>> Retrieve(
+    Task<HttpResponse<AccountRetrieveResponse>> Retrieve(
         string id,
         AccountRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -178,7 +178,7 @@ public interface IAccountServiceWithRawResponse
     /// Returns a raw HTTP response for <c>get /api/v1/accounts</c>, but is otherwise the
     /// same as <see cref="IAccountService.List(AccountListParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<List<Account>>> List(
+    Task<HttpResponse<List<AccountListResponse>>> List(
         AccountListParams parameters,
         CancellationToken cancellationToken = default
     );
@@ -187,13 +187,13 @@ public interface IAccountServiceWithRawResponse
     /// Returns a raw HTTP response for <c>delete /api/v1/accounts/{id}</c>, but is otherwise the
     /// same as <see cref="IAccountService.Close(AccountCloseParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<Account>> Close(
+    Task<HttpResponse<AccountCloseResponse>> Close(
         AccountCloseParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="Close(AccountCloseParams, CancellationToken)"/>
-    Task<HttpResponse<Account>> Close(
+    Task<HttpResponse<AccountCloseResponse>> Close(
         string id,
         AccountCloseParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -235,13 +235,13 @@ public interface IAccountServiceWithRawResponse
     /// Returns a raw HTTP response for <c>patch /api/v1/accounts/{id}</c>, but is otherwise the
     /// same as <see cref="IAccountService.UpdateStatus(AccountUpdateStatusParams, CancellationToken)"/>.
     /// </summary>
-    Task<HttpResponse<Account>> UpdateStatus(
+    Task<HttpResponse<AccountUpdateStatusResponse>> UpdateStatus(
         AccountUpdateStatusParams parameters,
         CancellationToken cancellationToken = default
     );
 
     /// <inheritdoc cref="UpdateStatus(AccountUpdateStatusParams, CancellationToken)"/>
-    Task<HttpResponse<Account>> UpdateStatus(
+    Task<HttpResponse<AccountUpdateStatusResponse>> UpdateStatus(
         string id,
         AccountUpdateStatusParams? parameters = null,
         CancellationToken cancellationToken = default
