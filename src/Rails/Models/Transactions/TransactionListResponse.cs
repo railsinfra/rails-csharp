@@ -153,12 +153,12 @@ public sealed record class Data : JsonModel
         init { this._rawData.Set("organization_id", value); }
     }
 
-    public required ApiEnum<string, Status> Status
+    public required ApiEnum<string, DataStatus> Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNotNullClass<ApiEnum<string, DataStatus>>("status");
         }
         init { this._rawData.Set("status", value); }
     }
@@ -286,17 +286,17 @@ class DataFromRaw : IFromRawJson<Data>
         Data.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(DataStatusConverter))]
+public enum DataStatus
 {
     Pending,
     Posted,
     Failed,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class DataStatusConverter : JsonConverter<DataStatus>
 {
-    public override Status Read(
+    public override DataStatus Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -304,22 +304,26 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "pending" => Status.Pending,
-            "posted" => Status.Posted,
-            "failed" => Status.Failed,
-            _ => (Status)(-1),
+            "pending" => DataStatus.Pending,
+            "posted" => DataStatus.Posted,
+            "failed" => DataStatus.Failed,
+            _ => (DataStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        DataStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Pending => "pending",
-                Status.Posted => "posted",
-                Status.Failed => "failed",
+                DataStatus.Pending => "pending",
+                DataStatus.Posted => "posted",
+                DataStatus.Failed => "failed",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

@@ -14,23 +14,32 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             Currency = "currency",
+            Email = "dev@stainless.com",
             Environment = "environment",
+            FirstName = "first_name",
+            LastName = "last_name",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
         ApiEnum<string, AccountType> expectedAccountType = AccountType.Checking;
-        string expectedUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedCurrency = "currency";
+        string expectedEmail = "dev@stainless.com";
         string expectedEnvironment = "environment";
+        string expectedFirstName = "first_name";
+        string expectedLastName = "last_name";
         string expectedOrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
+        string expectedUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
 
         Assert.Equal(expectedAccountType, parameters.AccountType);
-        Assert.Equal(expectedUserID, parameters.UserID);
         Assert.Equal(expectedCurrency, parameters.Currency);
+        Assert.Equal(expectedEmail, parameters.Email);
         Assert.Equal(expectedEnvironment, parameters.Environment);
+        Assert.Equal(expectedFirstName, parameters.FirstName);
+        Assert.Equal(expectedLastName, parameters.LastName);
         Assert.Equal(expectedOrganizationID, parameters.OrganizationID);
+        Assert.Equal(expectedUserID, parameters.UserID);
     }
 
     [Fact]
@@ -39,9 +48,12 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            Email = "dev@stainless.com",
             Environment = "environment",
+            FirstName = "first_name",
+            LastName = "last_name",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
         Assert.Null(parameters.Currency);
@@ -54,9 +66,12 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            Email = "dev@stainless.com",
             Environment = "environment",
+            FirstName = "first_name",
+            LastName = "last_name",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
 
             // Null should be interpreted as omitted for these properties
             Currency = null,
@@ -72,14 +87,21 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             Currency = "currency",
         };
 
+        Assert.Null(parameters.Email);
+        Assert.False(parameters.RawBodyData.ContainsKey("email"));
         Assert.Null(parameters.Environment);
         Assert.False(parameters.RawBodyData.ContainsKey("environment"));
+        Assert.Null(parameters.FirstName);
+        Assert.False(parameters.RawBodyData.ContainsKey("first_name"));
+        Assert.Null(parameters.LastName);
+        Assert.False(parameters.RawBodyData.ContainsKey("last_name"));
         Assert.Null(parameters.OrganizationID);
         Assert.False(parameters.RawBodyData.ContainsKey("organization_id"));
+        Assert.Null(parameters.UserID);
+        Assert.False(parameters.RawBodyData.ContainsKey("user_id"));
     }
 
     [Fact]
@@ -88,27 +110,34 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             Currency = "currency",
 
+            Email = null,
             Environment = null,
+            FirstName = null,
+            LastName = null,
             OrganizationID = null,
+            UserID = null,
         };
 
+        Assert.Null(parameters.Email);
+        Assert.True(parameters.RawBodyData.ContainsKey("email"));
         Assert.Null(parameters.Environment);
         Assert.True(parameters.RawBodyData.ContainsKey("environment"));
+        Assert.Null(parameters.FirstName);
+        Assert.True(parameters.RawBodyData.ContainsKey("first_name"));
+        Assert.Null(parameters.LastName);
+        Assert.True(parameters.RawBodyData.ContainsKey("last_name"));
         Assert.Null(parameters.OrganizationID);
         Assert.True(parameters.RawBodyData.ContainsKey("organization_id"));
+        Assert.Null(parameters.UserID);
+        Assert.True(parameters.RawBodyData.ContainsKey("user_id"));
     }
 
     [Fact]
     public void Url_Works()
     {
-        AccountCreateParams parameters = new()
-        {
-            AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        };
+        AccountCreateParams parameters = new() { AccountType = AccountType.Checking };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });
 
@@ -124,10 +153,13 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             Currency = "currency",
+            Email = "dev@stainless.com",
             Environment = "environment",
+            FirstName = "first_name",
+            LastName = "last_name",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
         AccountCreateParams copied = new(parameters);

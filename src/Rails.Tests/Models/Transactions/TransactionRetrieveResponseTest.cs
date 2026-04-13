@@ -2,16 +2,16 @@ using System;
 using System.Text.Json;
 using Rails.Core;
 using Rails.Exceptions;
-using Rails.Models;
+using Rails.Models.Transactions;
 
-namespace Rails.Tests.Models;
+namespace Rails.Tests.Models.Transactions;
 
-public class TransactionTest : TestBase
+public class TransactionRetrieveResponseTest : TestBase
 {
     [Fact]
     public void FieldRoundtrip_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -60,7 +60,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void SerializationRoundtrip_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -78,7 +78,7 @@ public class TransactionTest : TestBase
         };
 
         string json = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Transaction>(
+        var deserialized = JsonSerializer.Deserialize<TransactionRetrieveResponse>(
             json,
             ModelBase.SerializerOptions
         );
@@ -89,7 +89,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void FieldRoundtripThroughSerialization_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -107,7 +107,7 @@ public class TransactionTest : TestBase
         };
 
         string element = JsonSerializer.Serialize(model, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<Transaction>(
+        var deserialized = JsonSerializer.Deserialize<TransactionRetrieveResponse>(
             element,
             ModelBase.SerializerOptions
         );
@@ -145,7 +145,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void Validation_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -168,7 +168,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetAreNotSet_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -194,7 +194,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesUnsetValidation_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -213,7 +213,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullAreSetToNull_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -244,7 +244,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void OptionalNullablePropertiesSetToNullValidation_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -268,7 +268,7 @@ public class TransactionTest : TestBase
     [Fact]
     public void CopyConstructor_Works()
     {
-        var model = new Transaction
+        var model = new TransactionRetrieveResponse
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             AccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -285,7 +285,7 @@ public class TransactionTest : TestBase
             ReferenceID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
-        Transaction copied = new(model);
+        TransactionRetrieveResponse copied = new(model);
 
         Assert.Equal(model, copied);
     }

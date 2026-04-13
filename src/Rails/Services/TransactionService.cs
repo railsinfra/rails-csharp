@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Rails.Core;
 using Rails.Exceptions;
-using Rails.Models;
 using Rails.Models.Transactions;
 
 namespace Rails.Services;
@@ -37,7 +36,7 @@ public sealed class TransactionService : ITransactionService
     }
 
     /// <inheritdoc/>
-    public async Task<Transaction> Retrieve(
+    public async Task<TransactionRetrieveResponse> Retrieve(
         TransactionRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -49,7 +48,7 @@ public sealed class TransactionService : ITransactionService
     }
 
     /// <inheritdoc/>
-    public Task<Transaction> Retrieve(
+    public Task<TransactionRetrieveResponse> Retrieve(
         string id,
         TransactionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -73,7 +72,7 @@ public sealed class TransactionService : ITransactionService
     }
 
     /// <inheritdoc/>
-    public async Task<List<Transaction>> ListByAccount(
+    public async Task<List<TransactionListByAccountResponse>> ListByAccount(
         TransactionListByAccountParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -85,7 +84,7 @@ public sealed class TransactionService : ITransactionService
     }
 
     /// <inheritdoc/>
-    public Task<List<Transaction>> ListByAccount(
+    public Task<List<TransactionListByAccountResponse>> ListByAccount(
         string accountID,
         TransactionListByAccountParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -116,7 +115,7 @@ public sealed class TransactionServiceWithRawResponse : ITransactionServiceWithR
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<Transaction>> Retrieve(
+    public async Task<HttpResponse<TransactionRetrieveResponse>> Retrieve(
         TransactionRetrieveParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -137,7 +136,7 @@ public sealed class TransactionServiceWithRawResponse : ITransactionServiceWithR
             async (token) =>
             {
                 var transaction = await response
-                    .Deserialize<Transaction>(token)
+                    .Deserialize<TransactionRetrieveResponse>(token)
                     .ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
@@ -149,7 +148,7 @@ public sealed class TransactionServiceWithRawResponse : ITransactionServiceWithR
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse<Transaction>> Retrieve(
+    public Task<HttpResponse<TransactionRetrieveResponse>> Retrieve(
         string id,
         TransactionRetrieveParams? parameters = null,
         CancellationToken cancellationToken = default
@@ -189,7 +188,7 @@ public sealed class TransactionServiceWithRawResponse : ITransactionServiceWithR
     }
 
     /// <inheritdoc/>
-    public async Task<HttpResponse<List<Transaction>>> ListByAccount(
+    public async Task<HttpResponse<List<TransactionListByAccountResponse>>> ListByAccount(
         TransactionListByAccountParams parameters,
         CancellationToken cancellationToken = default
     )
@@ -209,23 +208,23 @@ public sealed class TransactionServiceWithRawResponse : ITransactionServiceWithR
             response,
             async (token) =>
             {
-                var transactions = await response
-                    .Deserialize<List<Transaction>>(token)
+                var deserializedResponse = await response
+                    .Deserialize<List<TransactionListByAccountResponse>>(token)
                     .ConfigureAwait(false);
                 if (this._client.ResponseValidation)
                 {
-                    foreach (var item in transactions)
+                    foreach (var item in deserializedResponse)
                     {
                         item.Validate();
                     }
                 }
-                return transactions;
+                return deserializedResponse;
             }
         );
     }
 
     /// <inheritdoc/>
-    public Task<HttpResponse<List<Transaction>>> ListByAccount(
+    public Task<HttpResponse<List<TransactionListByAccountResponse>>> ListByAccount(
         string accountID,
         TransactionListByAccountParams? parameters = null,
         CancellationToken cancellationToken = default

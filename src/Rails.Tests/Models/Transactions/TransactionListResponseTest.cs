@@ -24,7 +24,7 @@ public class TransactionListResponseTest : TestBase
                     Currency = "currency",
                     FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    Status = Status.Pending,
+                    Status = DataStatus.Pending,
                     ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     TransactionKind = TransactionKind.Deposit,
                     UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -52,7 +52,7 @@ public class TransactionListResponseTest : TestBase
                 Currency = "currency",
                 FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                Status = Status.Pending,
+                Status = DataStatus.Pending,
                 ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 TransactionKind = TransactionKind.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -92,7 +92,7 @@ public class TransactionListResponseTest : TestBase
                     Currency = "currency",
                     FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    Status = Status.Pending,
+                    Status = DataStatus.Pending,
                     ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     TransactionKind = TransactionKind.Deposit,
                     UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -134,7 +134,7 @@ public class TransactionListResponseTest : TestBase
                     Currency = "currency",
                     FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    Status = Status.Pending,
+                    Status = DataStatus.Pending,
                     ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     TransactionKind = TransactionKind.Deposit,
                     UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -169,7 +169,7 @@ public class TransactionListResponseTest : TestBase
                 Currency = "currency",
                 FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                Status = Status.Pending,
+                Status = DataStatus.Pending,
                 ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 TransactionKind = TransactionKind.Deposit,
                 UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -209,7 +209,7 @@ public class TransactionListResponseTest : TestBase
                     Currency = "currency",
                     FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    Status = Status.Pending,
+                    Status = DataStatus.Pending,
                     ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     TransactionKind = TransactionKind.Deposit,
                     UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -245,7 +245,7 @@ public class TransactionListResponseTest : TestBase
                     Currency = "currency",
                     FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    Status = Status.Pending,
+                    Status = DataStatus.Pending,
                     ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     TransactionKind = TransactionKind.Deposit,
                     UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -282,7 +282,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -297,7 +297,7 @@ public class DataTest : TestBase
         string expectedCurrency = "currency";
         string expectedFromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedOrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
-        ApiEnum<string, Status> expectedStatus = Status.Pending;
+        ApiEnum<string, DataStatus> expectedStatus = DataStatus.Pending;
         string expectedToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         ApiEnum<string, TransactionKind> expectedTransactionKind = TransactionKind.Deposit;
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
@@ -331,7 +331,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -357,7 +357,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -376,7 +376,7 @@ public class DataTest : TestBase
         string expectedCurrency = "currency";
         string expectedFromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         string expectedOrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
-        ApiEnum<string, Status> expectedStatus = Status.Pending;
+        ApiEnum<string, DataStatus> expectedStatus = DataStatus.Pending;
         string expectedToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         ApiEnum<string, TransactionKind> expectedTransactionKind = TransactionKind.Deposit;
         DateTimeOffset expectedUpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
@@ -410,7 +410,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -433,7 +433,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -456,7 +456,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -478,7 +478,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -504,7 +504,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -529,7 +529,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -553,7 +553,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -574,7 +574,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -601,7 +601,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -625,7 +625,7 @@ public class DataTest : TestBase
             Currency = "currency",
             FromAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Status = Status.Pending,
+            Status = DataStatus.Pending,
             ToAccountID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             TransactionKind = TransactionKind.Deposit,
             UpdatedAt = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
@@ -640,23 +640,23 @@ public class DataTest : TestBase
     }
 }
 
-public class StatusTest : TestBase
+public class DataStatusTest : TestBase
 {
     [Theory]
-    [InlineData(Status.Pending)]
-    [InlineData(Status.Posted)]
-    [InlineData(Status.Failed)]
-    public void Validation_Works(Status rawValue)
+    [InlineData(DataStatus.Pending)]
+    [InlineData(DataStatus.Posted)]
+    [InlineData(DataStatus.Failed)]
+    public void Validation_Works(DataStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, DataStatus> value = rawValue;
         value.Validate();
     }
 
     [Fact]
     public void InvalidEnumValidationThrows_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, DataStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
@@ -666,16 +666,16 @@ public class StatusTest : TestBase
     }
 
     [Theory]
-    [InlineData(Status.Pending)]
-    [InlineData(Status.Posted)]
-    [InlineData(Status.Failed)]
-    public void SerializationRoundtrip_Works(Status rawValue)
+    [InlineData(DataStatus.Pending)]
+    [InlineData(DataStatus.Posted)]
+    [InlineData(DataStatus.Failed)]
+    public void SerializationRoundtrip_Works(DataStatus rawValue)
     {
         // force implicit conversion because Theory can't do that for us
-        ApiEnum<string, Status> value = rawValue;
+        ApiEnum<string, DataStatus> value = rawValue;
 
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, DataStatus>>(
             json,
             ModelBase.SerializerOptions
         );
@@ -686,12 +686,12 @@ public class StatusTest : TestBase
     [Fact]
     public void InvalidEnumSerializationRoundtrip_Works()
     {
-        var value = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var value = JsonSerializer.Deserialize<ApiEnum<string, DataStatus>>(
             JsonSerializer.SerializeToElement("invalid value"),
             ModelBase.SerializerOptions
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
-        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, Status>>(
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, DataStatus>>(
             json,
             ModelBase.SerializerOptions
         );

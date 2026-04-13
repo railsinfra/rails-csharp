@@ -7,10 +7,15 @@ using System.Text.Json.Serialization;
 using Rails.Core;
 using Rails.Exceptions;
 
-namespace Rails.Models;
+namespace Rails.Models.Transactions;
 
-[JsonConverter(typeof(JsonModelConverter<Transaction, TransactionFromRaw>))]
-public sealed record class Transaction : JsonModel
+[JsonConverter(
+    typeof(JsonModelConverter<
+        TransactionListByAccountResponse,
+        TransactionListByAccountResponseFromRaw
+    >)
+)]
+public sealed record class TransactionListByAccountResponse : JsonModel
 {
     public required string ID
     {
@@ -72,24 +77,26 @@ public sealed record class Transaction : JsonModel
         init { this._rawData.Set("currency", value); }
     }
 
-    public required ApiEnum<string, Status> Status
+    public required ApiEnum<string, TransactionListByAccountResponseStatus> Status
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, Status>>("status");
+            return this._rawData.GetNotNullClass<
+                ApiEnum<string, TransactionListByAccountResponseStatus>
+            >("status");
         }
         init { this._rawData.Set("status", value); }
     }
 
-    public required ApiEnum<string, TransactionType> TransactionType
+    public required ApiEnum<string, TransactionListByAccountResponseTransactionType> TransactionType
     {
         get
         {
             this._rawData.Freeze();
-            return this._rawData.GetNotNullClass<ApiEnum<string, TransactionType>>(
-                "transaction_type"
-            );
+            return this._rawData.GetNotNullClass<
+                ApiEnum<string, TransactionListByAccountResponseTransactionType>
+            >("transaction_type");
         }
         init { this._rawData.Set("transaction_type", value); }
     }
@@ -162,43 +169,48 @@ public sealed record class Transaction : JsonModel
         _ = this.ReferenceID;
     }
 
-    public Transaction() { }
+    public TransactionListByAccountResponse() { }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    public Transaction(Transaction transaction)
-        : base(transaction) { }
+    public TransactionListByAccountResponse(
+        TransactionListByAccountResponse transactionListByAccountResponse
+    )
+        : base(transactionListByAccountResponse) { }
 #pragma warning restore CS8618
 
-    public Transaction(IReadOnlyDictionary<string, JsonElement> rawData)
+    public TransactionListByAccountResponse(IReadOnlyDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 
 #pragma warning disable CS8618
     [SetsRequiredMembers]
-    Transaction(FrozenDictionary<string, JsonElement> rawData)
+    TransactionListByAccountResponse(FrozenDictionary<string, JsonElement> rawData)
     {
         this._rawData = new(rawData);
     }
 #pragma warning restore CS8618
 
-    /// <inheritdoc cref="TransactionFromRaw.FromRawUnchecked"/>
-    public static Transaction FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData)
+    /// <inheritdoc cref="TransactionListByAccountResponseFromRaw.FromRawUnchecked"/>
+    public static TransactionListByAccountResponse FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    )
     {
         return new(FrozenDictionary.ToFrozenDictionary(rawData));
     }
 }
 
-class TransactionFromRaw : IFromRawJson<Transaction>
+class TransactionListByAccountResponseFromRaw : IFromRawJson<TransactionListByAccountResponse>
 {
     /// <inheritdoc/>
-    public Transaction FromRawUnchecked(IReadOnlyDictionary<string, JsonElement> rawData) =>
-        Transaction.FromRawUnchecked(rawData);
+    public TransactionListByAccountResponse FromRawUnchecked(
+        IReadOnlyDictionary<string, JsonElement> rawData
+    ) => TransactionListByAccountResponse.FromRawUnchecked(rawData);
 }
 
-[JsonConverter(typeof(StatusConverter))]
-public enum Status
+[JsonConverter(typeof(TransactionListByAccountResponseStatusConverter))]
+public enum TransactionListByAccountResponseStatus
 {
     Pending,
     Completed,
@@ -206,9 +218,10 @@ public enum Status
     Cancelled,
 }
 
-sealed class StatusConverter : JsonConverter<Status>
+sealed class TransactionListByAccountResponseStatusConverter
+    : JsonConverter<TransactionListByAccountResponseStatus>
 {
-    public override Status Read(
+    public override TransactionListByAccountResponseStatus Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -216,24 +229,28 @@ sealed class StatusConverter : JsonConverter<Status>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "pending" => Status.Pending,
-            "completed" => Status.Completed,
-            "failed" => Status.Failed,
-            "cancelled" => Status.Cancelled,
-            _ => (Status)(-1),
+            "pending" => TransactionListByAccountResponseStatus.Pending,
+            "completed" => TransactionListByAccountResponseStatus.Completed,
+            "failed" => TransactionListByAccountResponseStatus.Failed,
+            "cancelled" => TransactionListByAccountResponseStatus.Cancelled,
+            _ => (TransactionListByAccountResponseStatus)(-1),
         };
     }
 
-    public override void Write(Utf8JsonWriter writer, Status value, JsonSerializerOptions options)
+    public override void Write(
+        Utf8JsonWriter writer,
+        TransactionListByAccountResponseStatus value,
+        JsonSerializerOptions options
+    )
     {
         JsonSerializer.Serialize(
             writer,
             value switch
             {
-                Status.Pending => "pending",
-                Status.Completed => "completed",
-                Status.Failed => "failed",
-                Status.Cancelled => "cancelled",
+                TransactionListByAccountResponseStatus.Pending => "pending",
+                TransactionListByAccountResponseStatus.Completed => "completed",
+                TransactionListByAccountResponseStatus.Failed => "failed",
+                TransactionListByAccountResponseStatus.Cancelled => "cancelled",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),
@@ -243,8 +260,8 @@ sealed class StatusConverter : JsonConverter<Status>
     }
 }
 
-[JsonConverter(typeof(TransactionTypeConverter))]
-public enum TransactionType
+[JsonConverter(typeof(TransactionListByAccountResponseTransactionTypeConverter))]
+public enum TransactionListByAccountResponseTransactionType
 {
     Deposit,
     Withdrawal,
@@ -253,9 +270,10 @@ public enum TransactionType
     SavingsWithdraw,
 }
 
-sealed class TransactionTypeConverter : JsonConverter<TransactionType>
+sealed class TransactionListByAccountResponseTransactionTypeConverter
+    : JsonConverter<TransactionListByAccountResponseTransactionType>
 {
-    public override TransactionType Read(
+    public override TransactionListByAccountResponseTransactionType Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
@@ -263,18 +281,18 @@ sealed class TransactionTypeConverter : JsonConverter<TransactionType>
     {
         return JsonSerializer.Deserialize<string>(ref reader, options) switch
         {
-            "deposit" => TransactionType.Deposit,
-            "withdrawal" => TransactionType.Withdrawal,
-            "transfer" => TransactionType.Transfer,
-            "recurring_payment" => TransactionType.RecurringPayment,
-            "savings_withdraw" => TransactionType.SavingsWithdraw,
-            _ => (TransactionType)(-1),
+            "deposit" => TransactionListByAccountResponseTransactionType.Deposit,
+            "withdrawal" => TransactionListByAccountResponseTransactionType.Withdrawal,
+            "transfer" => TransactionListByAccountResponseTransactionType.Transfer,
+            "recurring_payment" => TransactionListByAccountResponseTransactionType.RecurringPayment,
+            "savings_withdraw" => TransactionListByAccountResponseTransactionType.SavingsWithdraw,
+            _ => (TransactionListByAccountResponseTransactionType)(-1),
         };
     }
 
     public override void Write(
         Utf8JsonWriter writer,
-        TransactionType value,
+        TransactionListByAccountResponseTransactionType value,
         JsonSerializerOptions options
     )
     {
@@ -282,11 +300,13 @@ sealed class TransactionTypeConverter : JsonConverter<TransactionType>
             writer,
             value switch
             {
-                TransactionType.Deposit => "deposit",
-                TransactionType.Withdrawal => "withdrawal",
-                TransactionType.Transfer => "transfer",
-                TransactionType.RecurringPayment => "recurring_payment",
-                TransactionType.SavingsWithdraw => "savings_withdraw",
+                TransactionListByAccountResponseTransactionType.Deposit => "deposit",
+                TransactionListByAccountResponseTransactionType.Withdrawal => "withdrawal",
+                TransactionListByAccountResponseTransactionType.Transfer => "transfer",
+                TransactionListByAccountResponseTransactionType.RecurringPayment =>
+                    "recurring_payment",
+                TransactionListByAccountResponseTransactionType.SavingsWithdraw =>
+                    "savings_withdraw",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

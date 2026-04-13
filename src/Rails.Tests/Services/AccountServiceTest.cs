@@ -9,11 +9,7 @@ public class AccountServiceTest : TestBase
     public async Task Create_Works()
     {
         var account = await this.client.Accounts.Create(
-            new()
-            {
-                AccountType = AccountType.Checking,
-                UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            },
+            new() { AccountType = AccountType.Checking },
             TestContext.Current.CancellationToken
         );
         account.Validate();
@@ -46,12 +42,12 @@ public class AccountServiceTest : TestBase
     [Fact(Skip = "Mock server tests are disabled")]
     public async Task Close_Works()
     {
-        var account = await this.client.Accounts.Close(
+        var response = await this.client.Accounts.Close(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             new(),
             TestContext.Current.CancellationToken
         );
-        account.Validate();
+        response.Validate();
     }
 
     [Fact(Skip = "Mock server tests are disabled")]
@@ -79,12 +75,12 @@ public class AccountServiceTest : TestBase
     [Fact(Skip = "Mock server tests are disabled")]
     public async Task UpdateStatus_Works()
     {
-        var account = await this.client.Accounts.UpdateStatus(
+        var response = await this.client.Accounts.UpdateStatus(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             new(),
             TestContext.Current.CancellationToken
         );
-        account.Validate();
+        response.Validate();
     }
 
     [Fact(Skip = "Mock server tests are disabled")]

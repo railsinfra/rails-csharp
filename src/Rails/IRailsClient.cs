@@ -51,8 +51,6 @@ public interface IRailsClient : IDisposable
     /// </summary>
     IRailsClient WithOptions(Func<ClientOptions, ClientOptions> modifier);
 
-    IUserService Users { get; }
-
     IAccountService Accounts { get; }
 
     ITransactionService Transactions { get; }
@@ -86,8 +84,6 @@ public interface IRailsClientWithRawResponse : IDisposable
     /// <para>The original service is not modified.</para>
     /// </summary>
     IRailsClientWithRawResponse WithOptions(Func<ClientOptions, ClientOptions> modifier);
-
-    IUserServiceWithRawResponse Users { get; }
 
     IAccountServiceWithRawResponse Accounts { get; }
 
