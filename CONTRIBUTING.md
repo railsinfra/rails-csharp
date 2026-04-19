@@ -1,37 +1,16 @@
-## Setting up the environment
+# Contributing
 
-To set up the repository, run:
+Thank you for helping improve this SDK. Report security issues via [`SECURITY.md`](SECURITY.md) (not public issues). Participation is covered by [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
-```sh
-$ ./scripts/bootstrap
-$ ./scripts/build
+Most of the client surface is regenerated from an internal OpenAPI/Stainless configuration. Coordinate larger changes with maintainers to avoid conflicts with the next regeneration.
+
+## Development
+
+From the repository root:
+
+```bash
+dotnet build src/Rails/Rails.csproj
+dotnet test
 ```
 
-This will install required dependencies and build the SDK.
-
-## Modifying/Adding code
-
-Most of the SDK is generated code. Modifications to code will be persisted between generations, but may
-result in merge conflicts between manual patches and changes from the generator. The generator will never
-modify the contents of the `examples/` directory.
-
-## Using the repository from source
-
-To use a local version of this library from source in another project, add it using a directory reference:
-
-```sh
-$ dotnet add reference /path/to/sdk/src/Rails
-```
-
-## Formatting and linting
-
-```sh
-$ ./scripts/format
-$ ./scripts/lint
-```
-
-## Running tests
-
-```sh
-$ ./scripts/test
-```
+See [`README.md`](README.md) for usage and configuration.

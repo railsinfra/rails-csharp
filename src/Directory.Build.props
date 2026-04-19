@@ -5,8 +5,8 @@
     <PackageTags>sdk;api;http;library</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>Copyright 2026 Rails</Copyright>
-    <PackageProjectUrl>https://www.github.com/stainless-sdks/rails-csharp</PackageProjectUrl>
-    <RepositoryUrl>https://www.github.com/stainless-sdks/rails-csharp</RepositoryUrl>
+    <PackageProjectUrl>https://www.github.com/railsinfra/rails-csharp</PackageProjectUrl>
+    <RepositoryUrl>https://www.github.com/railsinfra/rails-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Documentation-->

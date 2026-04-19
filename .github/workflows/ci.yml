@@ -18,8 +18,8 @@ jobs:
   lint:
     timeout-minutes: 10
     name: lint
-    runs-on: ${{ github.repository == 'stainless-sdks/rails-csharp' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    runs-on: ${{ github.repository == 'railsinfra/rails-csharp' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    if: (github.event_name == 'push' || github.event_name == 'pull_request') && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
 
     steps:
       - uses: actions/checkout@v6
@@ -37,8 +37,8 @@ jobs:
   build:
     timeout-minutes: 10
     name: build
-    runs-on: ${{ github.repository == 'stainless-sdks/rails-csharp' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    runs-on: ${{ github.repository == 'railsinfra/rails-csharp' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
+    if: (github.event_name == 'push' || github.event_name == 'pull_request') && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
 
     steps:
       - uses: actions/checkout@v6
@@ -54,8 +54,8 @@ jobs:
   test:
     timeout-minutes: 10
     name: test
-    runs-on: ${{ github.repository == 'stainless-sdks/rails-csharp' && 'depot-windows-2022' || 'windows-latest' }}
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
+    runs-on: ${{ github.repository == 'railsinfra/rails-csharp' && 'depot-windows-2022' || 'windows-latest' }}
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v6
 
