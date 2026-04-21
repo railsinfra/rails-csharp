@@ -7,7 +7,7 @@ namespace Rails.Core;
 /// <summary>
 /// A class representing the SDK client configuration.
 /// </summary>
-public struct ClientOptions()
+public record struct ClientOptions()
 {
     /// <summary>
     /// The default value used for <see cref="MaxRetries"/>.
@@ -22,16 +22,24 @@ public struct ClientOptions()
     /// <summary>
     /// The HTTP client to use for making requests in the SDK.
     /// </summary>
-    public HttpClient HttpClient { get; set; } = new();
+    public HttpClient HttpClient { get; set; } =
+        new(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Available });
 
     Lazy<string> _baseUrl = new(() =>
-        Environment.GetEnvironmentVariable("RAILS_BASE_URL") ?? EnvironmentUrl.Production
+        Environment.GetEnvironmentVariable("RAILS_BASE_URL") ?? EnvironmentUrl.Staging
     );
 
     /// <summary>
     /// The base URL to use for every request.
     ///
-    /// <para>Defaults to the production environment: <see cref="EnvironmentUrl.Production"/></para>
+    /// <para>Defaults to the staging environment: <see cref="EnvironmentUrl.Staging"/></para>
+    ///
+    /// <para>
+    /// The following other environments are available:
+    /// <list type="bullet">
+    ///   <item>production: <see cref="EnvironmentUrl.Production"/></item>
+    /// </list>
+    /// </para>
     /// </summary>
     public string BaseUrl
     {
@@ -71,7 +79,7 @@ public struct ClientOptions()
     /// <para>Defaults to 2 when null. Set to 0 to
     /// disable retries, which also ignores API instructions to retry.</para>
     /// </summary>
-    public int? MaxRetries { get; set; }
+    public int? MaxRetries { get; set; } = null;
 
     /// <summary>
     /// Sets the maximum time allowed for a complete HTTP call, not including retries.
@@ -81,7 +89,7 @@ public struct ClientOptions()
     ///
     /// <para>Defaults to <c>TimeSpan.FromMinutes(1)</c> when null.</para>
     /// </summary>
-    public TimeSpan? Timeout { get; set; }
+    public TimeSpan? Timeout { get; set; } = null;
 
     Lazy<string> _apiKey = new(() =>
         Environment.GetEnvironmentVariable("RAILS_API_KEY")

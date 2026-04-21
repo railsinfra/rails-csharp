@@ -156,9 +156,9 @@ public abstract record class ParamsBase
         }
     }
 
-    protected string QueryString(ClientOptions options)
+    internal string QueryString(ClientOptions options)
     {
-        NameValueCollection collection = [];
+        NameValueCollection collection = new();
         foreach (var item in this.RawQueryData)
         {
             ParamsBase.AddQueryElementToCollection(collection, item.Key, item.Value);
@@ -189,7 +189,7 @@ public abstract record class ParamsBase
         return null;
     }
 
-    protected static void AddDefaultHeaders(HttpRequestMessage request, ClientOptions options)
+    internal static void AddDefaultHeaders(HttpRequestMessage request, ClientOptions options)
     {
         foreach (var header in defaultHeaders)
         {
@@ -198,7 +198,7 @@ public abstract record class ParamsBase
 
         if (options.ApiKey != null)
         {
-            request.Headers.Add("api_key", options.ApiKey);
+            request.Headers.Add("X-API-Key", options.ApiKey);
         }
         request.Headers.Add(
             "X-Stainless-Timeout",
@@ -207,6 +207,13 @@ public abstract record class ParamsBase
     }
 
     static string GetUserAgent() => $"{typeof(RailsClient).Name}/C# {GetPackageVersion()}";
+
+    static string GetPackageVersion() =>
+        Assembly
+            .GetExecutingAssembly()
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+            ?.InformationalVersion
+        ?? "unknown";
 
     static string GetOSArch() =>
         RuntimeInformation.OSArchitecture switch
@@ -242,13 +249,6 @@ public abstract record class ParamsBase
         return $"Other:{RuntimeInformation.OSDescription}";
     }
 
-    static string GetPackageVersion() =>
-        Assembly
-            .GetExecutingAssembly()
-            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            ?.InformationalVersion
-        ?? "unknown";
-
     static Runtime GetRuntime()
     {
         var runtimeDescription = RuntimeInformation.FrameworkDescription;
@@ -267,5 +267,10 @@ public abstract record class ParamsBase
         };
     }
 
-    readonly record struct Runtime(string Name, string Version);
+    readonly record struct Runtime
+    {
+        public string Name { get; init; }
+
+        public string Version { get; init; }
+    }
 }

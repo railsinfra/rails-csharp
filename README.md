@@ -7,7 +7,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 ## Installation
 
 ```bash
-git clone git@github.com:stainless-sdks/rails-csharp.git
+git clone git@github.com:railsinfra/rails-csharp.git
 dotnet add reference rails-csharp/src/Rails
 ```
 
@@ -22,22 +22,22 @@ See the [`examples`](examples) directory for complete and runnable examples.
 ```csharp
 using System;
 using Rails;
-using Rails.Models.Pet;
+using Rails.Models.Users;
 
 RailsClient client = new();
 
-PetUpdateParams parameters = new()
+UserCreateParams parameters = new()
 {
-    Name = "doggie",
-    PhotoUrls =
-    [
-        "string"
-    ],
+    Email = "jane@example.com",
+    FirstName = "Jane",
+    LastName = "Doe",
+    Password = "your-secure-password",
+    XEnvironment = XEnvironment.Sandbox,
 };
 
-var pet = await client.Pet.Update(parameters);
+var user = await client.Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ## Client configuration
@@ -63,10 +63,10 @@ Or using a combination of the two approaches.
 
 See this table for the available options:
 
-| Property  | Environment variable | Required | Default value                           |
-| --------- | -------------------- | -------- | --------------------------------------- |
-| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                       |
-| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://petstore3.swagger.io/api/v3"` |
+| Property  | Environment variable | Required | Default value                                       |
+| --------- | -------------------- | -------- | --------------------------------------------------- |
+| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                                   |
+| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://accounts-service-staging.up.railway.app"` |
 
 ### Modifying configuration
 
@@ -75,7 +75,7 @@ To temporarily use a modified client configuration, while reusing the same conne
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with
         {
@@ -83,9 +83,9 @@ var pet = await client
             Timeout = TimeSpan.FromSeconds(42),
         }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 Using a [`with` expression](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/with-expression) makes it easy to construct the modified options.
@@ -96,7 +96,7 @@ The `WithOptions` method does not affect the original client or service.
 
 To send a request to the Rails API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a C# class.
 
-For example, `client.Pet.Update` should be called with an instance of `PetUpdateParams`, and it will return an instance of `Task<PetPet>`.
+For example, `client.Users.Create` should be called with an instance of `UserCreateParams`, and it will return an instance of `Task<UserCreateResponse>`.
 
 ## Raw responses
 
@@ -105,7 +105,7 @@ The SDK defines methods that deserialize responses into instances of C# classes.
 To access this data, prefix any HTTP method call on a client or service with `WithRawResponse`:
 
 ```csharp
-var response = await client.WithRawResponse.Pet.Update(parameters);
+var response = await client.WithRawResponse.Users.Create(parameters);
 var statusCode = response.StatusCode;
 var headers = response.Headers;
 ```
@@ -116,10 +116,10 @@ For non-streaming responses, you can deserialize the response into an instance o
 
 ```csharp
 using System;
-using Rails.Models.Pet;
+using Rails.Models.Users;
 
-var response = await client.WithRawResponse.Pet.Update(parameters);
-PetPet deserialized = await response.Deserialize();
+var response = await client.WithRawResponse.Users.Create(parameters);
+UserCreateResponse deserialized = await response.Deserialize();
 Console.WriteLine(deserialized);
 ```
 
@@ -141,8 +141,6 @@ The SDK throws custom unchecked exception types:
 | others | `RailsUnexpectedStatusCodeException` |
 
 Additionally, all 4xx errors inherit from `Rails4xxException`.
-
-false
 
 - `RailsIOException`: I/O networking errors.
 
@@ -179,13 +177,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with { MaxRetries = 3 }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ### Timeouts
@@ -206,18 +204,122 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with { Timeout = TimeSpan.FromSeconds(42) }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
+```
+
+### Proxies
+
+To route requests through a proxy, configure your client with a custom [`HttpClient`](https://learn.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=net-10.0):
+
+```csharp
+using System.Net;
+using System.Net.Http;
+using Rails;
+
+var httpClient = new HttpClient
+(
+    new HttpClientHandler
+    {
+        Proxy = new WebProxy("https://example.com:8080")
+    }
+);
+
+RailsClient client = new() { HttpClient = httpClient };
+```
+
+### Environments
+
+The SDK sends requests to the staging environment by default. To send requests to a different environment, configure the client like so:
+
+```csharp
+using Rails;
+using Rails.Core;
+
+RailsClient client = new() { BaseUrl = EnvironmentUrl.Production };
 ```
 
 ## Undocumented API functionality
 
 The SDK is typed for convenient usage of the documented API. However, it also supports working with undocumented or not yet supported parts of the API.
+
+### Parameters
+
+To set undocumented parameters, a constructor exists that accepts dictionaries for additional header, query, and body values. If the method type doesn't support request bodies (e.g. `GET` requests), the constructor will only accept a header and query dictionary.
+
+```csharp
+using System.Collections.Generic;
+using System.Text.Json;
+using Rails.Models.Users;
+
+UserCreateParams parameters = new
+(
+    rawHeaderData: new Dictionary<string, JsonElement>()
+    {
+        { "Custom-Header", JsonSerializer.SerializeToElement(42) }
+    },
+
+    rawQueryData: new Dictionary<string, JsonElement>()
+    {
+        { "custom_query_param", JsonSerializer.SerializeToElement(42) }
+    },
+
+    rawBodyData: new Dictionary<string, JsonElement>()
+    {
+        { "custom_body_param", JsonSerializer.SerializeToElement(42) }
+    }
+)
+{
+    // Documented properties can still be added here.
+    // In case of conflict, these parameters take precedence over the custom parameters.
+    Email = "dev@stainless.com"
+};
+```
+
+The raw parameters can also be accessed through the `RawHeaderData`, `RawQueryData`, and `RawBodyData` (if available) properties.
+
+This can also be used to set a documented parameter to an undocumented or not yet supported _value_, as long as the parameter is optional. If the parameter is required, omitting its `init` property will result in a compile-time error. To work around this, the `FromRawUnchecked` method can be used:
+
+```csharp
+using System.Collections.Generic;
+using System.Text.Json;
+using Rails.Models.Users;
+
+var parameters = UserCreateParams.FromRawUnchecked
+(
+
+    rawHeaderData: new Dictionary<string, JsonElement>(),
+    rawQueryData: new Dictionary<string, JsonElement>(),
+    rawBodyData: new Dictionary<string, JsonElement>
+    {
+        {
+            "email",
+            JsonSerializer.SerializeToElement("custom value")
+        }
+    }
+);
+```
+
+### Response properties
+
+To access undocumented response properties, the `RawData` property can be used:
+
+```csharp
+using System.Text.Json;
+
+var response = client.Users.Create(parameters)
+if (response.RawData.TryGetValue("my_custom_key", out JsonElement value))
+{
+    // Do something with `value`
+}
+```
+
+`RawData` is a `IReadonlyDictionary<string, JsonElement>`. It holds the full data received from the API server.
 
 ### Response validation
 
@@ -228,8 +330,8 @@ By default, the SDK will not throw an exception in this case. It will throw `Rai
 If you would prefer to check that the response is completely well-typed upfront, then either call `Validate`:
 
 ```csharp
-var pet = client.Pet.Update(parameters);
-pet.Validate();
+var user = client.Users.Create(parameters);
+user.Validate();
 ```
 
 Or configure the client using the `ResponseValidation` option:
@@ -245,13 +347,13 @@ Or configure a single method call using [`WithOptions`](#modifying-configuration
 ```csharp
 using System;
 
-var pet = await client
+var user = await client
     .WithOptions(options =>
         options with { ResponseValidation = true }
     )
-    .Pet.Update(parameters);
+    .Users.Create(parameters);
 
-Console.WriteLine(pet);
+Console.WriteLine(user);
 ```
 
 ## Semantic versioning
@@ -263,4 +365,4 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/rails-csharp/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/railsinfra/rails-csharp/issues) with questions, bugs, or suggestions.

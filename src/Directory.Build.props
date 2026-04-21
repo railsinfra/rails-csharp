@@ -5,14 +5,14 @@
     <PackageTags>sdk;api;http;library</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <Copyright>Copyright 2026 Rails</Copyright>
-    <PackageProjectUrl>https://www.github.com/stainless-sdks/rails-csharp</PackageProjectUrl>
-    <RepositoryUrl>https://www.github.com/stainless-sdks/rails-csharp</RepositoryUrl>
+    <PackageProjectUrl>https://www.github.com/railsinfra/rails-csharp</PackageProjectUrl>
+    <RepositoryUrl>https://www.github.com/railsinfra/rails-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
     <!-- Documentation-->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <!-- Disable missing XML documentation warnings. -->
-    <NoWarn>$(NoWarn),1570,1573,1574,1591</NoWarn>
+    <NoWarn>$(NoWarn),1573,1591</NoWarn>
 
     <!-- Source link -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
