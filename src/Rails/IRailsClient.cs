@@ -56,6 +56,8 @@ public interface IRailsClient : IDisposable
     IAccountService Accounts { get; }
 
     ITransactionService Transactions { get; }
+
+    IAuditEventService AuditEvents { get; }
 }
 
 /// <summary>
@@ -92,6 +94,8 @@ public interface IRailsClientWithRawResponse : IDisposable
     IAccountServiceWithRawResponse Accounts { get; }
 
     ITransactionServiceWithRawResponse Transactions { get; }
+
+    IAuditEventServiceWithRawResponse AuditEvents { get; }
 
     /// <summary>
     /// Sends a request to the Rails REST API.

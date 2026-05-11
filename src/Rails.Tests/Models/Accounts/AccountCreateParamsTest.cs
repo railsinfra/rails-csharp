@@ -82,7 +82,7 @@ public class AccountCreateParamsTest : TestBase
 
         Assert.True(
             TestBase.UrisEqual(
-                new Uri("https://accounts-service-staging.up.railway.app/api/v1/accounts"),
+                new Uri("https://rails-client-server-staging.up.railway.app/api/v1/accounts"),
                 url
             )
         );
