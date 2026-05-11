@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.2.0 (2026-05-11)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/railsinfra/rails-csharp/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([fdd0ad5](https://github.com/railsinfra/rails-csharp/commit/fdd0ad55ad8759aa178253898651d830fa8078a3))
+* **api:** manual updates ([48b3cb5](https://github.com/railsinfra/rails-csharp/commit/48b3cb54a6991de171b0dfea69711d51cd2c6ddf))
+* support setting headers via env ([577f96b](https://github.com/railsinfra/rails-csharp/commit/577f96b21fa8b75f31740d878c98421e903f3feb))
+
+
+### Bug Fixes
+
+* **internal:** disable default HttpClient timeout as we have our own ([029a431](https://github.com/railsinfra/rails-csharp/commit/029a4315366aae5569b5fc3adfb38bfdc7b03a8c))
+
 ## 0.1.0 (2026-04-21)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/railsinfra/rails-csharp/compare/v0.0.1...v0.1.0)
