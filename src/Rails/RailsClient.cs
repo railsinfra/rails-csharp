@@ -90,6 +90,12 @@ public sealed class RailsClient : IRailsClient
         get { return _transactions.Value; }
     }
 
+    readonly Lazy<IAuditEventService> _auditEvents;
+    public IAuditEventService AuditEvents
+    {
+        get { return _auditEvents.Value; }
+    }
+
     public void Dispose() => this.HttpClient.Dispose();
 
     public RailsClient()
@@ -100,6 +106,7 @@ public sealed class RailsClient : IRailsClient
         _users = new(() => new UserService(this));
         _accounts = new(() => new AccountService(this));
         _transactions = new(() => new TransactionService(this));
+        _auditEvents = new(() => new AuditEventService(this));
     }
 
     public RailsClient(ClientOptions options)
@@ -191,6 +198,12 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
     public ITransactionServiceWithRawResponse Transactions
     {
         get { return _transactions.Value; }
+    }
+
+    readonly Lazy<IAuditEventServiceWithRawResponse> _auditEvents;
+    public IAuditEventServiceWithRawResponse AuditEvents
+    {
+        get { return _auditEvents.Value; }
     }
 
     /// <inheritdoc/>
@@ -394,6 +407,7 @@ public sealed class RailsClientWithRawResponse : IRailsClientWithRawResponse
         _users = new(() => new UserServiceWithRawResponse(this));
         _accounts = new(() => new AccountServiceWithRawResponse(this));
         _transactions = new(() => new TransactionServiceWithRawResponse(this));
+        _auditEvents = new(() => new AuditEventServiceWithRawResponse(this));
     }
 
     public RailsClientWithRawResponse(ClientOptions options)
