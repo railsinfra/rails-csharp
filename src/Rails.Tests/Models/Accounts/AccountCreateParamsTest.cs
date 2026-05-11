@@ -14,56 +14,23 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
+            Currency = "SEW",
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Currency = "currency",
             Environment = "environment",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
         ApiEnum<string, AccountType> expectedAccountType = AccountType.Checking;
+        string expectedCurrency = "SEW";
         string expectedUserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
-        string expectedCurrency = "currency";
         string expectedEnvironment = "environment";
         string expectedOrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
 
         Assert.Equal(expectedAccountType, parameters.AccountType);
-        Assert.Equal(expectedUserID, parameters.UserID);
         Assert.Equal(expectedCurrency, parameters.Currency);
+        Assert.Equal(expectedUserID, parameters.UserID);
         Assert.Equal(expectedEnvironment, parameters.Environment);
         Assert.Equal(expectedOrganizationID, parameters.OrganizationID);
-    }
-
-    [Fact]
-    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
-    {
-        var parameters = new AccountCreateParams
-        {
-            AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Environment = "environment",
-            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        };
-
-        Assert.Null(parameters.Currency);
-        Assert.False(parameters.RawBodyData.ContainsKey("currency"));
-    }
-
-    [Fact]
-    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
-    {
-        var parameters = new AccountCreateParams
-        {
-            AccountType = AccountType.Checking,
-            UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Environment = "environment",
-            OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-
-            // Null should be interpreted as omitted for these properties
-            Currency = null,
-        };
-
-        Assert.Null(parameters.Currency);
-        Assert.False(parameters.RawBodyData.ContainsKey("currency"));
     }
 
     [Fact]
@@ -72,8 +39,8 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
+            Currency = "SEW",
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Currency = "currency",
         };
 
         Assert.Null(parameters.Environment);
@@ -88,8 +55,8 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
+            Currency = "SEW",
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Currency = "currency",
 
             Environment = null,
             OrganizationID = null,
@@ -107,6 +74,7 @@ public class AccountCreateParamsTest : TestBase
         AccountCreateParams parameters = new()
         {
             AccountType = AccountType.Checking,
+            Currency = "SEW",
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };
 
@@ -114,7 +82,7 @@ public class AccountCreateParamsTest : TestBase
 
         Assert.True(
             TestBase.UrisEqual(
-                new Uri("https://accounts-service-staging.up.railway.app/api/v1/accounts"),
+                new Uri("https://rails-client-server-staging.up.railway.app/api/v1/accounts"),
                 url
             )
         );
@@ -126,8 +94,8 @@ public class AccountCreateParamsTest : TestBase
         var parameters = new AccountCreateParams
         {
             AccountType = AccountType.Checking,
+            Currency = "SEW",
             UserID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            Currency = "currency",
             Environment = "environment",
             OrganizationID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         };

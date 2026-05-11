@@ -63,10 +63,10 @@ Or using a combination of the two approaches.
 
 See this table for the available options:
 
-| Property  | Environment variable | Required | Default value                                       |
-| --------- | -------------------- | -------- | --------------------------------------------------- |
-| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                                   |
-| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://accounts-service-staging.up.railway.app"` |
+| Property  | Environment variable | Required | Default value                                          |
+| --------- | -------------------- | -------- | ------------------------------------------------------ |
+| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                                      |
+| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://rails-client-server-staging.up.railway.app"` |
 
 ### Modifying configuration
 

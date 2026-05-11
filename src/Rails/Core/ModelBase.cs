@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Rails.Exceptions;
 using Rails.Models;
+using Rails.Models.AuditEvents;
 using Rails.Models.Users;
 using Accounts = Rails.Models.Accounts;
 using Transactions = Rails.Models.Transactions;
@@ -33,6 +34,14 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Accounts::Status>(),
             new ApiEnumConverter<string, Transactions::Status>(),
             new ApiEnumConverter<string, Transactions::TransactionKind>(),
+            new ApiEnumConverter<string, Action>(),
+            new ApiEnumConverter<string, Type>(),
+            new ApiEnumConverter<string, DataEnvironment>(),
+            new ApiEnumConverter<string, DataOutcome>(),
+            new ApiEnumConverter<long, SchemaVersion>(),
+            new ApiEnumConverter<string, SourceService>(),
+            new ApiEnumConverter<string, Environment>(),
+            new ApiEnumConverter<string, Outcome>(),
         },
     };
 

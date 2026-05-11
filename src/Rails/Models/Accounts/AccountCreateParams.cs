@@ -36,6 +36,19 @@ public record class AccountCreateParams : ParamsBase
         init { this._rawBodyData.Set("account_type", value); }
     }
 
+    /// <summary>
+    /// Three-letter uppercase ISO currency code, for example USD or ZAR.
+    /// </summary>
+    public required string Currency
+    {
+        get
+        {
+            this._rawBodyData.Freeze();
+            return this._rawBodyData.GetNotNullClass<string>("currency");
+        }
+        init { this._rawBodyData.Set("currency", value); }
+    }
+
     public required string UserID
     {
         get
@@ -44,24 +57,6 @@ public record class AccountCreateParams : ParamsBase
             return this._rawBodyData.GetNotNullClass<string>("user_id");
         }
         init { this._rawBodyData.Set("user_id", value); }
-    }
-
-    public string? Currency
-    {
-        get
-        {
-            this._rawBodyData.Freeze();
-            return this._rawBodyData.GetNullableClass<string>("currency");
-        }
-        init
-        {
-            if (value == null)
-            {
-                return;
-            }
-
-            this._rawBodyData.Set("currency", value);
-        }
     }
 
     public string? Environment
