@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.2 (2026-07-11)
+
+Full Changelog: [v0.2.1...v0.2.2](https://github.com/railsinfra/rails-csharp/compare/v0.2.1...v0.2.2)
+
+### Bug Fixes
+
+* **csharp:** resolve ambiguity in parsing query strings ([4ffbcc6](https://github.com/railsinfra/rails-csharp/commit/4ffbcc60c5c5e1fc0d70f9c6e304b79ab3bd6386))
+
+
+### Chores
+
+* **config:** update production sdk base url to www.api.railsinfra.com ([35f232b](https://github.com/railsinfra/rails-csharp/commit/35f232b998b4cfd03fb59ffc82673b83952780d8))
+
 ## 0.2.1 (2026-05-13)
 
 Full Changelog: [v0.2.0...v0.2.1](https://github.com/railsinfra/rails-csharp/compare/v0.2.0...v0.2.1)
