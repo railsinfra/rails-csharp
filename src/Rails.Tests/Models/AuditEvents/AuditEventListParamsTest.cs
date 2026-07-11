@@ -129,7 +129,7 @@ public class AuditEventListParamsTest : TestBase
         Assert.True(
             TestBase.UrisEqual(
                 new Uri(
-                    "https://rails-client-server-staging.up.railway.app/api/v1/audit/events?action=action&environment=sandbox&from=2019-12-27T18%3a11%3a19.117%2b00%3a00&outcome=success&page=1&per_page=1&target_id=target_id&target_type=target_type&to=2019-12-27T18%3a11%3a19.117%2b00%3a00"
+                    "https://www.api.railsinfra.com/api/v1/audit/events?action=action&environment=sandbox&from=2019-12-27T18%3a11%3a19.117%2b00%3a00&outcome=success&page=1&per_page=1&target_id=target_id&target_type=target_type&to=2019-12-27T18%3a11%3a19.117%2b00%3a00"
                 ),
                 url
             )

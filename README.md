@@ -63,10 +63,10 @@ Or using a combination of the two approaches.
 
 See this table for the available options:
 
-| Property  | Environment variable | Required | Default value                                          |
-| --------- | -------------------- | -------- | ------------------------------------------------------ |
-| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                                      |
-| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://rails-client-server-staging.up.railway.app"` |
+| Property  | Environment variable | Required | Default value                      |
+| --------- | -------------------- | -------- | ---------------------------------- |
+| `ApiKey`  | `RAILS_API_KEY`      | true     | -                                  |
+| `BaseUrl` | `RAILS_BASE_URL`     | true     | `"https://www.api.railsinfra.com"` |
 
 ### Modifying configuration
 
@@ -235,13 +235,13 @@ RailsClient client = new() { HttpClient = httpClient };
 
 ### Environments
 
-The SDK sends requests to the staging environment by default. To send requests to a different environment, configure the client like so:
+The SDK sends requests to the production environment by default. To send requests to a different environment, configure the client like so:
 
 ```csharp
 using Rails;
 using Rails.Core;
 
-RailsClient client = new() { BaseUrl = EnvironmentUrl.Production };
+RailsClient client = new() { BaseUrl = EnvironmentUrl.Staging };
 ```
 
 ## Undocumented API functionality
