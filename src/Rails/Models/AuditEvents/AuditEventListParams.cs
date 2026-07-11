@@ -184,6 +184,26 @@ public record class AuditEventListParams : ParamsBase
         }
     }
 
+    public ApiEnum<string, XEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<ApiEnum<string, XEnvironment>>(
+                "X-Environment"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
+    }
+
     public AuditEventListParams() { }
 
 #pragma warning disable CS8618
@@ -357,6 +377,50 @@ sealed class OutcomeConverter : JsonConverter<Outcome>
                 Outcome.Success => "success",
                 Outcome.ClientError => "client_error",
                 Outcome.ServerError => "server_error",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
+[JsonConverter(typeof(XEnvironmentConverter))]
+public enum XEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class XEnvironmentConverter : JsonConverter<XEnvironment>
+{
+    public override XEnvironment Read(
+        ref Utf8JsonReader reader,
+        System::Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => XEnvironment.Sandbox,
+            "production" => XEnvironment.Production,
+            _ => (XEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        XEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                XEnvironment.Sandbox => "sandbox",
+                XEnvironment.Production => "production",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

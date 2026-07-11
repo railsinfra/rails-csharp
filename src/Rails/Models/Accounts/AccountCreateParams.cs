@@ -79,6 +79,26 @@ public record class AccountCreateParams : ParamsBase
         init { this._rawBodyData.Set("organization_id", value); }
     }
 
+    public ApiEnum<string, XEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<ApiEnum<string, XEnvironment>>(
+                "X-Environment"
+            );
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
+    }
+
     public AccountCreateParams() { }
 
 #pragma warning disable CS8618
@@ -224,6 +244,50 @@ sealed class AccountTypeConverter : JsonConverter<AccountType>
             {
                 AccountType.Checking => "checking",
                 AccountType.Saving => "saving",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
+[JsonConverter(typeof(XEnvironmentConverter))]
+public enum XEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class XEnvironmentConverter : JsonConverter<XEnvironment>
+{
+    public override XEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => XEnvironment.Sandbox,
+            "production" => XEnvironment.Production,
+            _ => (XEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        XEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                XEnvironment.Sandbox => "sandbox",
+                XEnvironment.Production => "production",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

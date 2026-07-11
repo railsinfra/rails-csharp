@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Rails.Core;
+using Rails.Exceptions;
 
 namespace Rails.Models.Transactions;
 
@@ -34,6 +36,26 @@ public record class TransactionListByAccountParams : ParamsBase
             }
 
             this._rawQueryData.Set("limit", value);
+        }
+    }
+
+    public ApiEnum<string, TransactionListByAccountParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, TransactionListByAccountParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
         }
     }
 
@@ -138,5 +160,50 @@ public record class TransactionListByAccountParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(TransactionListByAccountParamsXEnvironmentConverter))]
+public enum TransactionListByAccountParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class TransactionListByAccountParamsXEnvironmentConverter
+    : JsonConverter<TransactionListByAccountParamsXEnvironment>
+{
+    public override TransactionListByAccountParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => TransactionListByAccountParamsXEnvironment.Sandbox,
+            "production" => TransactionListByAccountParamsXEnvironment.Production,
+            _ => (TransactionListByAccountParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        TransactionListByAccountParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                TransactionListByAccountParamsXEnvironment.Sandbox => "sandbox",
+                TransactionListByAccountParamsXEnvironment.Production => "production",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

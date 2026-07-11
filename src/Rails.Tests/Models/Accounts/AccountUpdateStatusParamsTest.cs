@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Text.Json;
 using Rails.Core;
 using Rails.Exceptions;
@@ -15,13 +16,17 @@ public class AccountUpdateStatusParamsTest : TestBase
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             Status = Status.Active,
+            XEnvironment = AccountUpdateStatusParamsXEnvironment.Sandbox,
         };
 
         string expectedID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e";
         ApiEnum<string, Status> expectedStatus = Status.Active;
+        ApiEnum<string, AccountUpdateStatusParamsXEnvironment> expectedXEnvironment =
+            AccountUpdateStatusParamsXEnvironment.Sandbox;
 
         Assert.Equal(expectedID, parameters.ID);
         Assert.Equal(expectedStatus, parameters.Status);
+        Assert.Equal(expectedXEnvironment, parameters.XEnvironment);
     }
 
     [Fact]
@@ -34,6 +39,8 @@ public class AccountUpdateStatusParamsTest : TestBase
 
         Assert.Null(parameters.Status);
         Assert.False(parameters.RawBodyData.ContainsKey("status"));
+        Assert.Null(parameters.XEnvironment);
+        Assert.False(parameters.RawHeaderData.ContainsKey("X-Environment"));
     }
 
     [Fact]
@@ -45,10 +52,13 @@ public class AccountUpdateStatusParamsTest : TestBase
 
             // Null should be interpreted as omitted for these properties
             Status = null,
+            XEnvironment = null,
         };
 
         Assert.Null(parameters.Status);
         Assert.False(parameters.RawBodyData.ContainsKey("status"));
+        Assert.Null(parameters.XEnvironment);
+        Assert.False(parameters.RawHeaderData.ContainsKey("X-Environment"));
     }
 
     [Fact]
@@ -72,12 +82,28 @@ public class AccountUpdateStatusParamsTest : TestBase
     }
 
     [Fact]
+    public void AddHeadersToRequest_Works()
+    {
+        HttpRequestMessage requestMessage = new();
+        AccountUpdateStatusParams parameters = new()
+        {
+            ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            XEnvironment = AccountUpdateStatusParamsXEnvironment.Sandbox,
+        };
+
+        parameters.AddHeadersToRequest(requestMessage, new() { ApiKey = "My API Key" });
+
+        Assert.Equal(["sandbox"], requestMessage.Headers.GetValues("X-Environment"));
+    }
+
+    [Fact]
     public void CopyConstructor_Works()
     {
         var parameters = new AccountUpdateStatusParams
         {
             ID = "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             Status = Status.Active,
+            XEnvironment = AccountUpdateStatusParamsXEnvironment.Sandbox,
         };
 
         AccountUpdateStatusParams copied = new(parameters);
@@ -141,6 +167,60 @@ public class StatusTest : TestBase
             json,
             ModelBase.SerializerOptions
         );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class AccountUpdateStatusParamsXEnvironmentTest : TestBase
+{
+    [Theory]
+    [InlineData(AccountUpdateStatusParamsXEnvironment.Sandbox)]
+    [InlineData(AccountUpdateStatusParamsXEnvironment.Production)]
+    public void Validation_Works(AccountUpdateStatusParamsXEnvironment rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, AccountUpdateStatusParamsXEnvironment> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<
+            ApiEnum<string, AccountUpdateStatusParamsXEnvironment>
+        >(JsonSerializer.SerializeToElement("invalid value"), ModelBase.SerializerOptions);
+
+        Assert.NotNull(value);
+        Assert.Throws<RailsInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(AccountUpdateStatusParamsXEnvironment.Sandbox)]
+    [InlineData(AccountUpdateStatusParamsXEnvironment.Production)]
+    public void SerializationRoundtrip_Works(AccountUpdateStatusParamsXEnvironment rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, AccountUpdateStatusParamsXEnvironment> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, AccountUpdateStatusParamsXEnvironment>
+        >(json, ModelBase.SerializerOptions);
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<
+            ApiEnum<string, AccountUpdateStatusParamsXEnvironment>
+        >(JsonSerializer.SerializeToElement("invalid value"), ModelBase.SerializerOptions);
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<
+            ApiEnum<string, AccountUpdateStatusParamsXEnvironment>
+        >(json, ModelBase.SerializerOptions);
 
         Assert.Equal(value, deserialized);
     }

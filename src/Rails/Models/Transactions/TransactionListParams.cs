@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Rails.Core;
+using Rails.Exceptions;
 
 namespace Rails.Models.Transactions;
 
@@ -60,6 +62,26 @@ public record class TransactionListParams : ParamsBase
             }
 
             this._rawQueryData.Set("per_page", value);
+        }
+    }
+
+    public ApiEnum<string, TransactionListParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, TransactionListParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
         }
     }
 
@@ -150,5 +172,50 @@ public record class TransactionListParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(TransactionListParamsXEnvironmentConverter))]
+public enum TransactionListParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class TransactionListParamsXEnvironmentConverter
+    : JsonConverter<TransactionListParamsXEnvironment>
+{
+    public override TransactionListParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => TransactionListParamsXEnvironment.Sandbox,
+            "production" => TransactionListParamsXEnvironment.Production,
+            _ => (TransactionListParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        TransactionListParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                TransactionListParamsXEnvironment.Sandbox => "sandbox",
+                TransactionListParamsXEnvironment.Production => "production",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }
