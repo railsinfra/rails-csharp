@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http;
 using System.Text.Json;
 using Rails.Core;
 using Rails.Exceptions;
@@ -22,6 +23,7 @@ public class AuditEventListParamsTest : TestBase
             TargetID = "target_id",
             TargetType = "target_type",
             To = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            XEnvironment = AuditEvents::XEnvironment.Sandbox,
         };
 
         string expectedAction = "action";
@@ -34,6 +36,8 @@ public class AuditEventListParamsTest : TestBase
         string expectedTargetID = "target_id";
         string expectedTargetType = "target_type";
         DateTimeOffset expectedTo = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z");
+        ApiEnum<string, AuditEvents::XEnvironment> expectedXEnvironment =
+            AuditEvents::XEnvironment.Sandbox;
 
         Assert.Equal(expectedAction, parameters.Action);
         Assert.Equal(expectedEnvironment, parameters.Environment);
@@ -44,6 +48,7 @@ public class AuditEventListParamsTest : TestBase
         Assert.Equal(expectedTargetID, parameters.TargetID);
         Assert.Equal(expectedTargetType, parameters.TargetType);
         Assert.Equal(expectedTo, parameters.To);
+        Assert.Equal(expectedXEnvironment, parameters.XEnvironment);
     }
 
     [Fact]
@@ -69,6 +74,8 @@ public class AuditEventListParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("target_type"));
         Assert.Null(parameters.To);
         Assert.False(parameters.RawQueryData.ContainsKey("to"));
+        Assert.Null(parameters.XEnvironment);
+        Assert.False(parameters.RawHeaderData.ContainsKey("X-Environment"));
     }
 
     [Fact]
@@ -86,6 +93,7 @@ public class AuditEventListParamsTest : TestBase
             TargetID = null,
             TargetType = null,
             To = null,
+            XEnvironment = null,
         };
 
         Assert.Null(parameters.Action);
@@ -106,6 +114,8 @@ public class AuditEventListParamsTest : TestBase
         Assert.False(parameters.RawQueryData.ContainsKey("target_type"));
         Assert.Null(parameters.To);
         Assert.False(parameters.RawQueryData.ContainsKey("to"));
+        Assert.Null(parameters.XEnvironment);
+        Assert.False(parameters.RawHeaderData.ContainsKey("X-Environment"));
     }
 
     [Fact]
@@ -137,6 +147,20 @@ public class AuditEventListParamsTest : TestBase
     }
 
     [Fact]
+    public void AddHeadersToRequest_Works()
+    {
+        HttpRequestMessage requestMessage = new();
+        AuditEvents::AuditEventListParams parameters = new()
+        {
+            XEnvironment = AuditEvents::XEnvironment.Sandbox,
+        };
+
+        parameters.AddHeadersToRequest(requestMessage, new() { ApiKey = "My API Key" });
+
+        Assert.Equal(["sandbox"], requestMessage.Headers.GetValues("X-Environment"));
+    }
+
+    [Fact]
     public void CopyConstructor_Works()
     {
         var parameters = new AuditEvents::AuditEventListParams
@@ -150,6 +174,7 @@ public class AuditEventListParamsTest : TestBase
             TargetID = "target_id",
             TargetType = "target_type",
             To = DateTimeOffset.Parse("2019-12-27T18:11:19.117Z"),
+            XEnvironment = AuditEvents::XEnvironment.Sandbox,
         };
 
         AuditEvents::AuditEventListParams copied = new(parameters);
@@ -268,6 +293,64 @@ public class OutcomeTest : TestBase
         );
         string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
         var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AuditEvents::Outcome>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+}
+
+public class XEnvironmentTest : TestBase
+{
+    [Theory]
+    [InlineData(AuditEvents::XEnvironment.Sandbox)]
+    [InlineData(AuditEvents::XEnvironment.Production)]
+    public void Validation_Works(AuditEvents::XEnvironment rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, AuditEvents::XEnvironment> value = rawValue;
+        value.Validate();
+    }
+
+    [Fact]
+    public void InvalidEnumValidationThrows_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, AuditEvents::XEnvironment>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+
+        Assert.NotNull(value);
+        Assert.Throws<RailsInvalidDataException>(() => value.Validate());
+    }
+
+    [Theory]
+    [InlineData(AuditEvents::XEnvironment.Sandbox)]
+    [InlineData(AuditEvents::XEnvironment.Production)]
+    public void SerializationRoundtrip_Works(AuditEvents::XEnvironment rawValue)
+    {
+        // force implicit conversion because Theory can't do that for us
+        ApiEnum<string, AuditEvents::XEnvironment> value = rawValue;
+
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AuditEvents::XEnvironment>>(
+            json,
+            ModelBase.SerializerOptions
+        );
+
+        Assert.Equal(value, deserialized);
+    }
+
+    [Fact]
+    public void InvalidEnumSerializationRoundtrip_Works()
+    {
+        var value = JsonSerializer.Deserialize<ApiEnum<string, AuditEvents::XEnvironment>>(
+            JsonSerializer.SerializeToElement("invalid value"),
+            ModelBase.SerializerOptions
+        );
+        string json = JsonSerializer.Serialize(value, ModelBase.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<ApiEnum<string, AuditEvents::XEnvironment>>(
             json,
             ModelBase.SerializerOptions
         );

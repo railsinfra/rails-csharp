@@ -35,6 +35,39 @@ public class UserCreateParamsTest : TestBase
     }
 
     [Fact]
+    public void OptionalNonNullableParamsUnsetAreNotSet_Works()
+    {
+        var parameters = new UserCreateParams
+        {
+            Email = "dev@stainless.com",
+            FirstName = "first_name",
+            LastName = "last_name",
+            Password = "password",
+        };
+
+        Assert.Null(parameters.XEnvironment);
+        Assert.False(parameters.RawHeaderData.ContainsKey("X-Environment"));
+    }
+
+    [Fact]
+    public void OptionalNonNullableParamsSetToNullAreNotSet_Works()
+    {
+        var parameters = new UserCreateParams
+        {
+            Email = "dev@stainless.com",
+            FirstName = "first_name",
+            LastName = "last_name",
+            Password = "password",
+
+            // Null should be interpreted as omitted for these properties
+            XEnvironment = null,
+        };
+
+        Assert.Null(parameters.XEnvironment);
+        Assert.False(parameters.RawHeaderData.ContainsKey("X-Environment"));
+    }
+
+    [Fact]
     public void Url_Works()
     {
         UserCreateParams parameters = new()
@@ -43,7 +76,6 @@ public class UserCreateParamsTest : TestBase
             FirstName = "first_name",
             LastName = "last_name",
             Password = "password",
-            XEnvironment = XEnvironment.Sandbox,
         };
 
         var url = parameters.Url(new() { ApiKey = "My API Key" });

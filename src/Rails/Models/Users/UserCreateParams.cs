@@ -66,16 +66,24 @@ public record class UserCreateParams : ParamsBase
         init { this._rawBodyData.Set("password", value); }
     }
 
-    public required ApiEnum<string, XEnvironment> XEnvironment
+    public ApiEnum<string, XEnvironment>? XEnvironment
     {
         get
         {
             this._rawHeaderData.Freeze();
-            return this._rawHeaderData.GetNotNullClass<ApiEnum<string, XEnvironment>>(
+            return this._rawHeaderData.GetNullableClass<ApiEnum<string, XEnvironment>>(
                 "X-Environment"
             );
         }
-        init { this._rawHeaderData.Set("X-Environment", value); }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
     }
 
     public UserCreateParams() { }

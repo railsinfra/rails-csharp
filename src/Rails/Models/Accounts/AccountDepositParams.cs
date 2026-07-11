@@ -5,7 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Rails.Core;
+using Rails.Exceptions;
 
 namespace Rails.Models.Accounts;
 
@@ -44,6 +46,26 @@ public record class AccountDepositParams : ParamsBase
             return this._rawBodyData.GetNullableClass<string>("description");
         }
         init { this._rawBodyData.Set("description", value); }
+    }
+
+    public ApiEnum<string, AccountDepositParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, AccountDepositParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
     }
 
     public AccountDepositParams() { }
@@ -164,5 +186,50 @@ public record class AccountDepositParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(AccountDepositParamsXEnvironmentConverter))]
+public enum AccountDepositParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class AccountDepositParamsXEnvironmentConverter
+    : JsonConverter<AccountDepositParamsXEnvironment>
+{
+    public override AccountDepositParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => AccountDepositParamsXEnvironment.Sandbox,
+            "production" => AccountDepositParamsXEnvironment.Production,
+            _ => (AccountDepositParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        AccountDepositParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                AccountDepositParamsXEnvironment.Sandbox => "sandbox",
+                AccountDepositParamsXEnvironment.Production => "production",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

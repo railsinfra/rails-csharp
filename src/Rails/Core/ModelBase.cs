@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Rails.Exceptions;
 using Rails.Models;
-using Rails.Models.AuditEvents;
 using Rails.Models.Users;
 using Accounts = Rails.Models.Accounts;
+using AuditEvents = Rails.Models.AuditEvents;
 using Transactions = Rails.Models.Transactions;
 
 namespace Rails.Core;
@@ -31,17 +31,32 @@ public abstract record class ModelBase
             new ApiEnumConverter<string, Accounts::AccountAccountType>(),
             new ApiEnumConverter<string, Accounts::AccountStatus>(),
             new ApiEnumConverter<string, Accounts::AccountType>(),
+            new ApiEnumConverter<string, Accounts::XEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountRetrieveParamsXEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountListParamsXEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountCloseParamsXEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountDepositParamsXEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountTransferParamsXEnvironment>(),
             new ApiEnumConverter<string, Accounts::Status>(),
+            new ApiEnumConverter<string, Accounts::AccountUpdateStatusParamsXEnvironment>(),
+            new ApiEnumConverter<string, Accounts::AccountWithdrawParamsXEnvironment>(),
             new ApiEnumConverter<string, Transactions::Status>(),
             new ApiEnumConverter<string, Transactions::TransactionKind>(),
-            new ApiEnumConverter<string, Action>(),
-            new ApiEnumConverter<string, Type>(),
-            new ApiEnumConverter<string, DataEnvironment>(),
-            new ApiEnumConverter<string, DataOutcome>(),
-            new ApiEnumConverter<long, SchemaVersion>(),
-            new ApiEnumConverter<string, SourceService>(),
-            new ApiEnumConverter<string, Environment>(),
-            new ApiEnumConverter<string, Outcome>(),
+            new ApiEnumConverter<string, Transactions::XEnvironment>(),
+            new ApiEnumConverter<string, Transactions::TransactionListParamsXEnvironment>(),
+            new ApiEnumConverter<
+                string,
+                Transactions::TransactionListByAccountParamsXEnvironment
+            >(),
+            new ApiEnumConverter<string, AuditEvents::Action>(),
+            new ApiEnumConverter<string, AuditEvents::Type>(),
+            new ApiEnumConverter<string, AuditEvents::DataEnvironment>(),
+            new ApiEnumConverter<string, AuditEvents::DataOutcome>(),
+            new ApiEnumConverter<long, AuditEvents::SchemaVersion>(),
+            new ApiEnumConverter<string, AuditEvents::SourceService>(),
+            new ApiEnumConverter<string, AuditEvents::Environment>(),
+            new ApiEnumConverter<string, AuditEvents::Outcome>(),
+            new ApiEnumConverter<string, AuditEvents::XEnvironment>(),
         },
     };
 
