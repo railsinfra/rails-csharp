@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Rails.Core;
+using Rails.Exceptions;
 
 namespace Rails.Models.Accounts;
 
@@ -18,6 +20,26 @@ namespace Rails.Models.Accounts;
 public record class AccountCloseParams : ParamsBase
 {
     public string? ID { get; init; }
+
+    public ApiEnum<string, AccountCloseParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, AccountCloseParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
+    }
 
     public AccountCloseParams() { }
 
@@ -117,5 +139,49 @@ public record class AccountCloseParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(AccountCloseParamsXEnvironmentConverter))]
+public enum AccountCloseParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class AccountCloseParamsXEnvironmentConverter : JsonConverter<AccountCloseParamsXEnvironment>
+{
+    public override AccountCloseParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => AccountCloseParamsXEnvironment.Sandbox,
+            "production" => AccountCloseParamsXEnvironment.Production,
+            _ => (AccountCloseParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        AccountCloseParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                AccountCloseParamsXEnvironment.Sandbox => "sandbox",
+                AccountCloseParamsXEnvironment.Production => "production",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

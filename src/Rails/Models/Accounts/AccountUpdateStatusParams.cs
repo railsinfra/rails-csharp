@@ -46,6 +46,26 @@ public record class AccountUpdateStatusParams : ParamsBase
         }
     }
 
+    public ApiEnum<string, AccountUpdateStatusParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, AccountUpdateStatusParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
+    }
+
     public AccountUpdateStatusParams() { }
 
 #pragma warning disable CS8618
@@ -200,6 +220,51 @@ sealed class StatusConverter : JsonConverter<Status>
                 Status.Active => "active",
                 Status.Suspended => "suspended",
                 Status.Closed => "closed",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
+    }
+}
+
+[JsonConverter(typeof(AccountUpdateStatusParamsXEnvironmentConverter))]
+public enum AccountUpdateStatusParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class AccountUpdateStatusParamsXEnvironmentConverter
+    : JsonConverter<AccountUpdateStatusParamsXEnvironment>
+{
+    public override AccountUpdateStatusParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => AccountUpdateStatusParamsXEnvironment.Sandbox,
+            "production" => AccountUpdateStatusParamsXEnvironment.Production,
+            _ => (AccountUpdateStatusParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        AccountUpdateStatusParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                AccountUpdateStatusParamsXEnvironment.Sandbox => "sandbox",
+                AccountUpdateStatusParamsXEnvironment.Production => "production",
                 _ => throw new RailsInvalidDataException(
                     string.Format("Invalid value '{0}' in {1}", value, nameof(value))
                 ),

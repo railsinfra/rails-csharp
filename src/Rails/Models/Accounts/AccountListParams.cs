@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Rails.Core;
+using Rails.Exceptions;
 
 namespace Rails.Models.Accounts;
 
@@ -25,6 +27,26 @@ public record class AccountListParams : ParamsBase
             return this._rawQueryData.GetNotNullClass<string>("user_id");
         }
         init { this._rawQueryData.Set("user_id", value); }
+    }
+
+    public ApiEnum<string, AccountListParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, AccountListParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
     }
 
     public AccountListParams() { }
@@ -114,5 +136,49 @@ public record class AccountListParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(AccountListParamsXEnvironmentConverter))]
+public enum AccountListParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class AccountListParamsXEnvironmentConverter : JsonConverter<AccountListParamsXEnvironment>
+{
+    public override AccountListParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => AccountListParamsXEnvironment.Sandbox,
+            "production" => AccountListParamsXEnvironment.Production,
+            _ => (AccountListParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        AccountListParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                AccountListParamsXEnvironment.Sandbox => "sandbox",
+                AccountListParamsXEnvironment.Production => "production",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

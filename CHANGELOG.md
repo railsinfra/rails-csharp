@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.0 (2026-07-25)
+
+Full Changelog: [v0.2.2...v0.3.0](https://github.com/railsinfra/rails-csharp/compare/v0.2.2...v0.3.0)
+
+### Features
+
+* **api:** api update ([1112dd5](https://github.com/railsinfra/rails-csharp/commit/1112dd5b4817bca3a19527425beb403d902e13c5))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([f2928a0](https://github.com/railsinfra/rails-csharp/commit/f2928a05e991b1b822c6f58633ea5b0e786de40d))
+
+
+### Bug Fixes
+
+* **client:** tolerate JSON null in required untyped fields and prefer more specific union variants ([e2a8dba](https://github.com/railsinfra/rails-csharp/commit/e2a8dbaf73a366f77b59ea89151655aefc83c566))
+* set production as default environment for docs snippets ([102fe10](https://github.com/railsinfra/rails-csharp/commit/102fe10191b502b97fe8be7d613aa8ab7fdb48cd))
+
 ## 0.2.2 (2026-07-11)
 
 Full Changelog: [v0.2.1...v0.2.2](https://github.com/railsinfra/rails-csharp/compare/v0.2.1...v0.2.2)

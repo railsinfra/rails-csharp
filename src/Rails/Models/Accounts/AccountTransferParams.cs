@@ -5,7 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using Rails.Core;
+using Rails.Exceptions;
 
 namespace Rails.Models.Accounts;
 
@@ -54,6 +56,26 @@ public record class AccountTransferParams : ParamsBase
             return this._rawBodyData.GetNullableClass<string>("description");
         }
         init { this._rawBodyData.Set("description", value); }
+    }
+
+    public ApiEnum<string, AccountTransferParamsXEnvironment>? XEnvironment
+    {
+        get
+        {
+            this._rawHeaderData.Freeze();
+            return this._rawHeaderData.GetNullableClass<
+                ApiEnum<string, AccountTransferParamsXEnvironment>
+            >("X-Environment");
+        }
+        init
+        {
+            if (value == null)
+            {
+                return;
+            }
+
+            this._rawHeaderData.Set("X-Environment", value);
+        }
     }
 
     public AccountTransferParams() { }
@@ -174,5 +196,50 @@ public record class AccountTransferParams : ParamsBase
     public override int GetHashCode()
     {
         return 0;
+    }
+}
+
+[JsonConverter(typeof(AccountTransferParamsXEnvironmentConverter))]
+public enum AccountTransferParamsXEnvironment
+{
+    Sandbox,
+    Production,
+}
+
+sealed class AccountTransferParamsXEnvironmentConverter
+    : JsonConverter<AccountTransferParamsXEnvironment>
+{
+    public override AccountTransferParamsXEnvironment Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    )
+    {
+        return JsonSerializer.Deserialize<string>(ref reader, options) switch
+        {
+            "sandbox" => AccountTransferParamsXEnvironment.Sandbox,
+            "production" => AccountTransferParamsXEnvironment.Production,
+            _ => (AccountTransferParamsXEnvironment)(-1),
+        };
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        AccountTransferParamsXEnvironment value,
+        JsonSerializerOptions options
+    )
+    {
+        JsonSerializer.Serialize(
+            writer,
+            value switch
+            {
+                AccountTransferParamsXEnvironment.Sandbox => "sandbox",
+                AccountTransferParamsXEnvironment.Production => "production",
+                _ => throw new RailsInvalidDataException(
+                    string.Format("Invalid value '{0}' in {1}", value, nameof(value))
+                ),
+            },
+            options
+        );
     }
 }

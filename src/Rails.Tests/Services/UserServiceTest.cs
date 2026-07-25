@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Rails.Models.Users;
 
 namespace Rails.Tests.Services;
 
@@ -15,7 +14,6 @@ public class UserServiceTest : TestBase
                 FirstName = "first_name",
                 LastName = "last_name",
                 Password = "password",
-                XEnvironment = XEnvironment.Sandbox,
             },
             TestContext.Current.CancellationToken
         );
